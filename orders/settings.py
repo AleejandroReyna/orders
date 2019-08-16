@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'pages.apps.PagesConfig',
     'dashboard.apps.DashboardConfig',
-    'custom_auth.apps.CustomAuthConfig'
+    'custom_auth.apps.CustomAuthConfig',
+    'companies.apps.CompaniesConfig'
 ]
 
 MIDDLEWARE = [
