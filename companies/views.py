@@ -27,8 +27,6 @@ class CompanyListView(ListView):
 
     def get_queryset(self):
         queryset = super(CompanyListView, self).get_queryset()
-        print(self)
-        print(queryset)
         return queryset
 
 
