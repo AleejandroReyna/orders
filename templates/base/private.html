@@ -25,6 +25,9 @@
         </a>
         <nav>
             <ul>
+                {% if perms.companies.add_company %}
+                    <li><a href="{% url 'companies:new_company' %}">Add Company</a></li>
+                {% endif %}
                 {% if request.user.is_authenticated %}
                     <li><a href="{% url 'custom_auth:logout' %}">Logout</a></li>
                 {% else %}

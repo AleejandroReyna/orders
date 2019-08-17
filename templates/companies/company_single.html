@@ -1,0 +1,12 @@
+{% extends 'base/private.html' %}
+
+{% block title %}{{ object.name }}{% endblock %}
+
+{% block content %}
+    <h1>Company</h1>
+
+    <div class="content">
+        <li><strong>Name: </strong>{{ object.name }}</li>
+    </div>
+
+{% endblock %}
