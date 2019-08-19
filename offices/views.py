@@ -12,13 +12,18 @@ class CreateOfficeView(PermissionRequiredMixin, LoginRequiredMixin, CreateView):
     redirect_field_name = 'redirect_to'
     login_url = '/auth/login'
     permission_required = 'companies.add_office'
-    
+
     def form_valid(self, form):
         messages.success(self.request, 'Company has been added', extra_tags='success')
         return super(CreateOfficeView, self).form_valid(form)
 
     def get_success_url(self):
         return reverse('offices:office', kwargs={'office_id': self.object.pk})
+
+    def get_form(self, form_class=None):
+        form = super(CreateOfficeView, self).get_form()
+        form.fields['company'].queryset = self.request.user.company_set.all()
+        return form
 
 
 class OfficeView(DetailView):
