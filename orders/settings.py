@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'phonenumber_field',
+    'widget_tweaks',
     'pages.apps.PagesConfig',
     'dashboard.apps.DashboardConfig',
     'custom_auth.apps.CustomAuthConfig',
@@ -52,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'crequest.middleware.CrequestMiddleware'
 ]
 
 ROOT_URLCONF = 'orders.urls'

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from phonenumber_field.modelfields import PhoneNumberField
+from crequest.middleware import CrequestMiddleware
 
 
 class Company(models.Model):
@@ -10,12 +11,18 @@ class Company(models.Model):
     description = models.TextField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    users = models.ManyToManyField(User, through='CompanyUserRole')
 
     def __str__(self):
         return "%s" % self.name
 
     def save(self, *args, **kwargs):
+        current_request = CrequestMiddleware.get_request()
         super(Company, self).save(*args, **kwargs)
+        current_user = current_request.user
+        central = self.office_set.create(name='central')
+        self.companyuserrole_set.create(user=current_user, company_role_id=1)
+        central.officeuserrole_set.create(user=current_user, company_role_id=1)
 
 
 class Office(models.Model):
@@ -23,6 +30,7 @@ class Office(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     phone = PhoneNumberField(null=True)
     address = models.TextField(null=True)
+    users = models.ManyToManyField(User, through='OfficeUserRole')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -42,6 +50,16 @@ class CompanyRole(models.Model):
 
 class CompanyUserRole(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    company_role = models.ForeignKey(CompanyRole, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return "%s_%s_%s" % (self.company.pk, self.user.pk, self.company_role.pk)
+
+
+class OfficeUserRole(models.Model):
     office = models.ForeignKey(Office, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     company_role = models.ForeignKey(CompanyRole, on_delete=models.CASCADE)
@@ -49,4 +67,4 @@ class CompanyUserRole(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return "%s_%s_%s_%s" % (self.company.pk, self.office.pk, self.user.pk, self.company_role.pk)
+        return "%s_%s_%s" % (self.office.pk, self.user.pk, self.company_role.pk)

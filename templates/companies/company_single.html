@@ -3,10 +3,56 @@
 {% block title %}{{ object.name }}{% endblock %}
 
 {% block content %}
-    <h1>Company</h1>
-
-    <div class="content">
-        <li><strong>Name: </strong>{{ object.name }}</li>
+    <div class="container">
+        <div class="row">
+            <div class="col"><h2>{{ object.name }}</h2></div>
+        </div>
     </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header"><strong>Information</strong></div>
+                    <div class="card-body">
+                        <ul>
+                            <li>Description: {{ object.description }}</li>
+                            <li>Phone: {{ object.phone }}</li>
+                            <li>Address: {{ object.address }}</li>
+                            <li>Created at: {{ object.created_at }}</li>
+                            <li>Last updated at: {{ object.updated_at }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col"><h2>Offices</h2></div>
+        </div>
+
+        <div class="row">
+            {% for office in company.office_set.all %}
+                <div class="col-4">
+                    <article class="card">
+                        <img src="https://placehold.it/300x200" alt="">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ office.name }}</h5>
+                            <ul>
+                                <li><strong>Phone: </strong><span>{{ office.phone }}</span></li>
+                                <li><strong>Address: </strong><span>{{ office.address }}</span></li>
+                            </ul>
+                            <a class="btn btn-primary"
+                               href="#">View</a>
+                        </div>
+                    </article>
+               </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
 
 {% endblock %}

@@ -1,13 +1,35 @@
 {% extends 'base/private.html' %}
+{% load widget_tweaks %}
 
 {% block title %}Create Company{% endblock %}
 
 {% block content %}
-    <h1>Create Company</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2>Create Company</h2>
+            </div>
+        </div>
+    </div>
 
-    <form action="." method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Create Company">
-    </form>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <form action="." method="post">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="form-group">
+                            {{ field.errors }}
+                            {{ field.label_tag }}
+                            {% render_field field class='form-control' %}
+                            {% if field.help_text %}
+                            <p class="help">{{ field.help_text|safe }}</p>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    <input type="submit" class="btn btn-primary" value="Create Company">
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock %}

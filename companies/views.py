@@ -16,7 +16,7 @@ class CreateCompanyView(LoginRequiredMixin, PermissionRequiredMixin, CreateView)
     success_url = reverse_lazy('companies:list_company')
 
     def form_valid(self, form):
-        success(self.request, 'Company has been added')
+        success(self.request, 'Company has been added', extra_tags='success')
         return super(CreateCompanyView, self).form_valid(form)
 
 
@@ -26,7 +26,7 @@ class CompanyListView(ListView):
     template_name_suffix = '_list'
 
     def get_queryset(self):
-        queryset = super(CompanyListView, self).get_queryset()
+        queryset = self.request.user.company_set.all()
         return queryset
 
 
@@ -34,3 +34,18 @@ class CompanyView(DetailView):
     template_name_suffix = '_single'
     model = models.Company
     pk_url_kwarg = 'company_id'
+
+
+class CreateOfficeView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    model = models.Office
+    fields = ('name', 'company', 'phone', 'address')
+    template_name_suffix = '_office_form'
+    redirect_field_name = 'redirect_to'
+    login_url = '/auth/login'
+    permission_required = 'companies.add_office'
+    permission_denied_message = 'Unauthorized'
+    success_url = reverse_lazy('companies:list_company')
+
+    def form_valid(self, form):
+        success(self.request, 'Company has been added', extra_tags='success')
+        return super(CreateOfficeView, self).form_valid()

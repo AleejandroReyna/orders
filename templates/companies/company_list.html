@@ -3,11 +3,27 @@
 {% block title %}Company List{% endblock %}
 
 {% block content %}
-    <h1>Company List</h1>
-
-    <ul>
-        {% for object in object_list %}
-            <li>{{ object.name }} - <a href="{% url 'companies:company' company_id=object.pk %}">View</a></li>
-        {% endfor %}
-    </ul>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>Company List</h1>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+           {% for object in object_list %}
+               <div class="col-4">
+                    <article class="card">
+                        <img src="https://placehold.it/300x200" alt="">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ object.name }}</h5>
+                            <a class="btn btn-primary"
+                               href="{% url 'companies:company' company_id=object.pk %}">View</a>
+                        </div>
+                    </article>
+               </div>
+           {% endfor %}
+        </div>
+    </div>
 {% endblock %}
