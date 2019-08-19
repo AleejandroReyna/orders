@@ -56,8 +56,10 @@
                                 <li><strong>Phone: </strong><span>{{ office.phone }}</span></li>
                                 <li><strong>Address: </strong><span>{{ office.address }}</span></li>
                             </ul>
-                            <a class="btn btn-primary"
-                               href="{% url 'offices:office' office_id=office.pk %}">View</a>
+                            <strong>Actions: </strong>
+                            <a class="btn btn-primary" href="{% url 'offices:office' office_id=office.pk %}">View</a>
+                            <a class="btn btn-success" href="{% url 'offices:edit_office' office_id=office.pk %}">Edit</a>
+                            <a class="btn btn-danger" href="{% url 'offices:delete_office' office_id=office.pk %}">Delete</a>
                         </div>
                     </article>
                </div>

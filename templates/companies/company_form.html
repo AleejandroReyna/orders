@@ -30,6 +30,7 @@
                             {{ field.errors }}
                         </div>
                     {% endfor %}
+                    <a href="{{request.META.HTTP_REFERER}}" class="btn btn-outline-secondary">Cancel</a>
                     <button role="submit" class="btn btn-primary">{{ action }} Company</button>
                 </form>
             </div>

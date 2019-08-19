@@ -23,6 +23,10 @@
                             </li>
                             <li><strong>Phone: </strong><span>{{ object.phone }}</span></li>
                             <li><strong>Address: </strong><span>{{ object.address }}</span></li>
+                            <strong>Actions: </strong>
+                            <a class="btn btn-primary" href="{% url 'offices:office' office_id=object.pk %}">View</a>
+                            <a class="btn btn-success" href="{% url 'offices:edit_office' office_id=object.pk %}">Edit</a>
+                            <a class="btn btn-danger" href="{% url 'offices:delete_office' office_id=object.pk %}">Delete</a>
                         </ul>
                     </div>
                 </article>

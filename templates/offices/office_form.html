@@ -1,13 +1,16 @@
 {% extends 'base/private.html' %}
 {% load widget_tweaks %}
 
-{% block title %}Create Office{% endblock %}
+{% block title %}{{ action }} Office{% endblock %}
 
 {% block content %}
     <div class="container">
         <div class="row">
             <div class="col">
-                <h2>Create Office</h2>
+                <h2>{{ action }} Office</h2>
+                {% if description %}
+                    <p>{{ description }}</p>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -27,7 +30,8 @@
                             {% endif %}
                         </div>
                     {% endfor %}
-                    <input type="submit" class="btn btn-primary" value="Create Office">
+                    <a href="{{request.META.HTTP_REFERER}}" class="btn btn-outline-secondary">Cancel</a>
+                    <button role="submit" class="btn btn-primary">{{ action }} Office</button>
                 </form>
             </div>
         </div>
