@@ -45,7 +45,7 @@
                                 <li><strong>Address: </strong><span>{{ office.address }}</span></li>
                             </ul>
                             <a class="btn btn-primary"
-                               href="#">View</a>
+                               href="{% url 'offices:office' office_id=office.pk %}">View</a>
                         </div>
                     </article>
                </div>

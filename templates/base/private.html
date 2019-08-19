@@ -18,13 +18,14 @@
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
+
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'dashboard:dashboard' %}">Dashboard</a>
               </li>
+
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCompanies" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Companies
-                </a>
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCompanies" role="button"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Companies</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownCompanies">
                   {% if perms.companies.view_company %}
                     <a class="dropdown-item" href="{% url 'companies:list_company' %}">Companies</a>
@@ -32,6 +33,16 @@
                   {% if perms.companies.add_company %}
                     <a class="dropdown-item" href="{% url 'companies:new_company' %}">Add Company</a>
                   {% endif %}
+                </div>
+              </li>
+
+              <li class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownOffices" role="button"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Offices</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownOffices">
+                    {% if perms.companies.add_office %}
+                        <a class="dropdown-item" href="{% url 'offices:new_office' %}">Add Office</a>
+                    {% endif %}
                 </div>
               </li>
             </ul>
