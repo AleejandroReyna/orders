@@ -19,10 +19,11 @@ class Company(models.Model):
     def save(self, *args, **kwargs):
         current_request = CrequestMiddleware.get_request()
         super(Company, self).save(*args, **kwargs)
-        current_user = current_request.user
-        central = self.office_set.create(name='central')
-        self.companyuserrole_set.create(user=current_user, company_role_id=1)
-        central.officeuserrole_set.create(user=current_user, company_role_id=1)
+        offices = self.office_set.count()
+        if offices == 0:
+            current_user = current_request.user
+            central = self.office_set.create(name='central')
+            self.companyuserrole_set.create(user=current_user, company_role_id=1)
 
 
 class Office(models.Model):

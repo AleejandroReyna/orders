@@ -5,7 +5,9 @@
 {% block content %}
     <div class="container">
         <div class="row">
-            <div class="col"><h2>{{ object.name }}</h2></div>
+            <div class="col">
+                <h2>{{ object.name }}</h2>
+            </div>
         </div>
     </div>
 
@@ -13,7 +15,9 @@
         <div class="row">
             <div class="col">
                 <div class="card">
-                    <div class="card-header"><strong>Information</strong></div>
+                    <div class="card-header">
+                        <strong>Information</strong>
+                    </div>
                     <div class="card-body">
                         <ul>
                             <li>Description: {{ object.description }}</li>
@@ -22,6 +26,9 @@
                             <li>Created at: {{ object.created_at }}</li>
                             <li>Last updated at: {{ object.updated_at }}</li>
                         </ul>
+                        <strong>Actions: </strong>
+                        <a href="{% url 'companies:edit_company' company_id=object.pk %}" class="btn btn-success">Edit</a>
+                        <a href="{% url 'companies:delete_company' company_id=object.pk %}" class="btn btn-danger">Delete</a>
                     </div>
                 </div>
             </div>
@@ -30,7 +37,12 @@
 
     <div class="container">
         <div class="row">
-            <div class="col"><h2>Offices</h2></div>
+            <div class="col">
+                <h2>
+                Offices
+                <a href="{% url 'companies:new_office' company_id=object.pk %}" class="btn btn-primary">Add Office</a>
+                </h2>
+            </div>
         </div>
 
         <div class="row">

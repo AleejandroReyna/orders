@@ -1,13 +1,16 @@
 {% extends 'base/private.html' %}
 {% load widget_tweaks %}
 
-{% block title %}Create Company{% endblock %}
+{% block title %}{{ action }} Company{% endblock %}
 
 {% block content %}
     <div class="container">
         <div class="row">
             <div class="col">
-                <h2>Create Company</h2>
+                <h2>{{ action }} Company</h2>
+                {% if description %}
+                    <p>{{ description }}</p>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -19,15 +22,15 @@
                     {% csrf_token %}
                     {% for field in form %}
                         <div class="form-group">
-                            {{ field.errors }}
                             {{ field.label_tag }}
                             {% render_field field class='form-control' %}
                             {% if field.help_text %}
                             <p class="help">{{ field.help_text|safe }}</p>
                             {% endif %}
+                            {{ field.errors }}
                         </div>
                     {% endfor %}
-                    <input type="submit" class="btn btn-primary" value="Create Company">
+                    <button role="submit" class="btn btn-primary">{{ action }} Company</button>
                 </form>
             </div>
         </div>
