@@ -22,6 +22,16 @@
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'dashboard:dashboard' %}">Dashboard</a>
               </li>
+            
+              <li class="nav-item dropdown">
+                  <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownCollaborators"
+                     role="button" data-toggle="dropdown" aria-expanded="false">Collaborators</a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdownCollaborators">
+                      {% if perms.auth.add_user %}
+                          <a href="{% url 'collaborators:new_collaborator' %}" class="dropdown-item">Add Collaborator</a>
+                      {% endif %}
+                  </div>
+              </li>
 
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCompanies" role="button"

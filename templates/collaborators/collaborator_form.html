@@ -1,20 +1,19 @@
 {% extends 'base/private.html' %}
 {% load widget_tweaks %}
 
-{% block title %}{{ action }} Office{% endblock %}
+{% block title %}{{ action }} Collaborator{% endblock %}
 
 {% block content %}
     <div class="container">
         <div class="row">
             <div class="col">
-                <h2>{{ action }} Office</h2>
+                <h2>{{ action }} Collaborator</h2>
                 {% if description %}
                     <p>{{ description }}</p>
                 {% endif %}
             </div>
         </div>
     </div>
-
 
     <div class="container">
         <div class="row">
@@ -25,14 +24,14 @@
                         <div class="form-group">
                             {{ field.errors }}
                             {{ field.label_tag }}
-                            {% render_field field class='form-control' %}
+                            {% render_field field class='form-control' required='required' %}
                             {% if field.help_text %}
                             <p class="help">{{ field.help_text|safe }}</p>
                             {% endif %}
                         </div>
                     {% endfor %}
                     <a href="{{request.META.HTTP_REFERER}}" class="btn btn-outline-secondary">Cancel</a>
-                    <button role="submit" class="btn btn-primary">{{ action }} Office</button>
+                    <button role="submit" class="btn btn-primary">{{ action }} Collaborator</button>
                 </form>
             </div>
         </div>
