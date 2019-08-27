@@ -65,6 +65,36 @@
                </div>
             {% endfor %}
         </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header"><strong>Clients</strong></div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for client in clients %}
+                                    <tr>
+                                        <td>{{ client.pk }}</td>
+                                        <td>{{ client.first_name }}</td>
+                                        <td>{{ client.last_name }}</td>
+                                        <td></td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 

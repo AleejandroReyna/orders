@@ -3,6 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from companies import models
 from django.urls import reverse_lazy
 from django.contrib.messages import success
+from django.contrib.auth.models import User
 
 
 class CompanyCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
@@ -39,6 +40,13 @@ class CompanyView(DetailView):
     template_name_suffix = '_single'
     model = models.Company
     pk_url_kwarg = 'company_id'
+
+    def get_context_data(self, **kwargs):
+        context = super(CompanyView, self).get_context_data()
+        company = models.Company.objects.get(pk=context['object'].pk)
+        role = models.CompanyRole.objects.get(name='client')
+        context['clients'] = company.users.filter(companyuserrole__company_role=role)
+        return context
 
 
 class CompanyEditView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):

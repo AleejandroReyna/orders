@@ -70,28 +70,28 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header"><strong>Offices</strong></div>
-                </div>
-                <div class="card-body">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Company</th>
-                            <th></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            {% for office in offices %}
-                                <tr>
-                                    <td>{{ office.pk }}</td>
-                                    <td>{{ office.name }}</td>
-                                    <td><a href="{% url 'companies:company' company_id=office.company_id %}">{{ office.company.name }}</a></td>
-                                    <td><a href="{% url 'offices:office' office_id=office.pk %}" class="btn btn-primary">View</a></td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Company</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for office in offices %}
+                                    <tr>
+                                        <td>{{ office.pk }}</td>
+                                        <td>{{ office.name }}</td>
+                                        <td><a href="{% url 'companies:company' company_id=office.company_id %}">{{ office.company.name }}</a></td>
+                                        <td><a href="{% url 'offices:office' office_id=office.pk %}" class="btn btn-primary">View</a></td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

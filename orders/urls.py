@@ -23,5 +23,6 @@ urlpatterns = [
     path('dashboard/', include('dashboard.urls')),
     path('companies/', include('companies.urls')),
     path('offices/', include('offices.urls')),
-    path('collaborators/', include('collaborators.urls'))
+    path('collaborators/', include('collaborators.urls')),
+    path('clients/', include('clients.urls'))
 ]
