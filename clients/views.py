@@ -1,5 +1,6 @@
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, DetailView
 from django.contrib.auth.models import User, Group
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.http import JsonResponse
 from clients import forms
 from companies.models import Company, CompanyRole, CompanyUserRole
@@ -7,9 +8,12 @@ from django.shortcuts import redirect
 from django.contrib import messages
 
 
-class CreateCompanyClientView(TemplateView):
+class CreateCompanyClientView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     template_name = 'clients/create_client_form.html'
     form_class = forms.CreateClientForm
+    redirect_field_name = 'redirect_to'
+    login_url = '/auth/login'
+    permission_required = 'auth.add_user'
 
     def get_context_data(self, **kwargs):
         context = super(CreateCompanyClientView, self).get_context_data()
@@ -46,3 +50,20 @@ class CreateCompanyClientView(TemplateView):
                 print(e)
                 messages.error(self.request, 'Not possible add client for company', extra_tags='danger')
                 return super(CreateCompanyClientView, self).get(self.request)
+
+
+class ClientView(LoginRequiredMixin, DetailView):
+    model = User
+    pk_url_kwarg = 'client_id'
+    template_name = 'clients/client_single.html'
+    redirect_field_name = 'redirect_to'
+    login_url = '/auth/login'
+
+    def get_context_data(self, **kwargs):
+        context = super(ClientView, self).get_context_data()
+        admin_companies = self.request.user.company_set\
+            .filter(companyuserrole__company_role__name__in=['colaborator', 'administrator'])
+        context['companies'] = context['user'].company_set\
+            .filter(companyuserrole__company_role__name__in=['client'])\
+            .filter(id__in=[item.pk for item in admin_companies])
+        return context

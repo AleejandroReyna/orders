@@ -86,7 +86,10 @@
                                         <td>{{ client.pk }}</td>
                                         <td>{{ client.first_name }}</td>
                                         <td>{{ client.last_name }}</td>
-                                        <td></td>
+                                        <td>
+                                            <a href="{% url 'clients:client' client_id=client.pk %}"
+                                               class="btn btn-primary">View</a>
+                                        </td>
                                     </tr>
                                 {% endfor %}
                             </tbody>
