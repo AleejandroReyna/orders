@@ -65,6 +65,19 @@
                       {% endif %}
                   </div>
               </li>
+
+              <li class="nav-item dropdown">
+                  <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownCategories" role="button"
+                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdownCategories">
+                      {% if perms.categories.view_category %}
+                          <a href="{% url 'categories:categories' %}" class="dropdown-item">Categories</a>
+                      {% endif %}
+                      {% if perms.categories.add_category %}
+                          <a href="{% url 'categories:new_category' %}" class="dropdown-item">Add Category</a>
+                      {% endif %}
+                  </div>
+              </li>
             </ul>
             <div class="form-inline my-2 my-lg-0">
                 <ul class="navbar-nav mr-auto">

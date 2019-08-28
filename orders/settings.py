@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'custom_auth.apps.CustomAuthConfig',
     'companies.apps.CompaniesConfig',
     'offices.apps.OfficesConfig',
-    'collaborators.apps.CollaboratorsConfig'
+    'collaborators.apps.CollaboratorsConfig',
+    'categories.apps.CategoriesConfig'
 ]
 
 MIDDLEWARE = [

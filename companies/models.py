@@ -9,6 +9,7 @@ class Company(models.Model):
     address = models.TextField(null=True)
     phone = PhoneNumberField(null=True)
     description = models.TextField(null=True)
+    nit = models.CharField(max_length=20)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     users = models.ManyToManyField(User, through='CompanyUserRole')

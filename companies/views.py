@@ -3,12 +3,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from companies import models
 from django.urls import reverse_lazy
 from django.contrib.messages import success
-from django.contrib.auth.models import User
 
 
 class CompanyCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = models.Company
-    fields = ('name', 'address', 'phone', 'description')
+    fields = ('name', 'address', 'phone', 'description', 'nit')
     template_name_suffix = '_form'
     redirect_field_name = 'redirect_to'
     login_url = '/auth/login'
@@ -51,7 +50,7 @@ class CompanyView(DetailView):
 
 class CompanyEditView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = models.Company
-    fields = ('name', 'address', 'phone', 'description')
+    fields = ('name', 'address', 'phone', 'description', 'nit')
     template_name_suffix = '_form'
     redirect_field_name = 'redirect_to'
     login_url = '/auth/login'
@@ -104,3 +103,7 @@ class CreateCompanyOfficeView(LoginRequiredMixin, PermissionRequiredMixin, Creat
         form.instance.company_id = self.kwargs['company_id']
         return super(CreateCompanyOfficeView, self).form_valid(form)
 
+    def get_context_data(self, **kwargs):
+        context = super(CreateCompanyOfficeView, self).get_context_data()
+        context['action'] = 'Create'
+        return context
