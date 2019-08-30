@@ -96,10 +96,9 @@ class CreateCompanyOfficeView(LoginRequiredMixin, PermissionRequiredMixin, Creat
     login_url = '/auth/login'
     permission_required = 'companies.add_office'
     permission_denied_message = 'Unauthorized'
-    success_url = reverse_lazy('companies:list_company')
 
     def form_valid(self, form):
-        success(self.request, 'Company has been added', extra_tags='success')
+        success(self.request, 'Office with name: "%s" has been added.' % form.instance.name, extra_tags='success')
         form.instance.company_id = self.kwargs['company_id']
         return super(CreateCompanyOfficeView, self).form_valid(form)
 
@@ -107,3 +106,6 @@ class CreateCompanyOfficeView(LoginRequiredMixin, PermissionRequiredMixin, Creat
         context = super(CreateCompanyOfficeView, self).get_context_data()
         context['action'] = 'Create'
         return context
+
+    def get_success_url(self):
+        return reverse_lazy('offices:office', kwargs={'office_id': self.object.pk})
