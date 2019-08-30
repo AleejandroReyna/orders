@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'categories.apps.CategoriesConfig',
     'exam_group.apps.ExamGroupConfig',
     'exams.apps.ExamsConfig',
-    'clients.apps.ClientsConfig'
+    'clients.apps.ClientsConfig',
+    'exam_response_types.apps.ExamResponseTypesConfig'
 ]
 
 MIDDLEWARE = [
