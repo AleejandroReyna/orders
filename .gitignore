@@ -125,4 +125,4 @@ dmypy.json
 
 \.idea/
 
-migrations/
+.DS_Store
