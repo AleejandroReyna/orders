@@ -9,6 +9,7 @@
         {% csrf_token %}
         {{ form.as_p }}
         {{ form.errors }}
+        <input type="hidden" name="redirect_to">
         <input type="submit" value="Login">
     </form>
 {% endblock %}

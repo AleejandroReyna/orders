@@ -1,0 +1,46 @@
+{% extends 'base/private.html' %}
+
+{% block title %}Exam: {{ object.name }}{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2>Exam: {{ object.name }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header"><strong>Information</strong></div>
+                    <div class="card-body">
+                        <ul>
+                            <li><strong>Description: </strong><span>{{ object.description }}</span></li>
+                            <li>
+                                <strong>Exam Group: </strong>
+                                <a href="{% url 'exam_group:exam_group' exam_group_id=object.exam_group.pk %}">
+                                    {{ object.exam_group.name }}
+                                </a>
+                            </li>
+                            <li>
+                                <strong>Added By: </strong>
+                                <span>
+                                    {% if exam.user %}
+                                        {{ exam.user.first_name.title }} {{ exam.user.last_name.title }}
+                                    {% else %}
+                                        Deleted User
+                                    {% endif %}
+                                </span>
+                            </li>
+                            <li><strong>Created At: </strong><span>{{ object.created_at }}</span></li>
+                            <li><strong>Last Updated At: </strong><span>{{ object.updated_at }}</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

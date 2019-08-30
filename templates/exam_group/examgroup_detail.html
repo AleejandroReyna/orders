@@ -1,12 +1,12 @@
 {% extends 'base/private.html' %}
 
-{% block title %}Category {{ object.name }}{% endblock %}
+{% block title %}Exam group {{ object.name }}{% endblock %}
 
 {% block content %}
     <div class="container">
         <div class="row">
             <div class="col">
-                <h2>Category: {{ object.name }}</h2>
+                <h2>{{ object.name }}</h2>
             </div>
         </div>
     </div>
@@ -18,8 +18,9 @@
                     <div class="card-header"><strong>Information</strong></div>
                     <div class="card-body">
                         <ul>
+                            <li><strong>Description: </strong><span>{{ object.description }}</span></li>
                             <li>
-                                <strong>Added by: </strong>
+                                <strong>Created By: </strong>
                                 <span>
                                     {% if object.user %}
                                         {{ object.user.first_name.title }} {{ object.user.last_name.title }}
@@ -28,20 +29,26 @@
                                     {% endif %}
                                 </span>
                             </li>
-                            <li><strong>Description: </strong><span>{{ object.description }}</span></li>
+                            <li>
+                                <strong>Category: </strong>
+                                <a href="{% url 'categories:category' category_id=object.category.pk %}">
+                                    {{ object.category.name }}
+                                </a>
+                            </li>
                             <li><strong>Created At: </strong><span>{{ object.created_at }}</span></li>
-                            <li><strong>Last Updated At: </strong><span>{{ object.updated_at }}</span></li>
+                            <li><strong>Updated At: </strong><span>{{ object.updated_at }}</span></li>
                         </ul>
                         <strong>Actions: </strong>
-                        <a href="{% url 'categories:edit_category' category_id=object.pk %}"
+                        <a href="{% url 'exam_group:edit_exam_group' exam_group_id=object.pk %}"
                            class="btn btn-success">Edit</a>
-                        <a href="{% url 'categories:delete_category' category_id=object.pk %}"
+                        <a href="{% url 'exam_group:delete_exam_group' exam_group_id=object.pk %}"
                            class="btn btn-danger">Delete</a>
                     </div>
                 </div>
             </div>
         </div>
-
+    </div>
+    <div class="container">
         <div class="row">
             <div class="col">
                 <table class="table">
@@ -50,23 +57,28 @@
                         <th>#</th>
                         <th>Name</th>
                         <th>Description</th>
-                        <th>added By</th>
+                        <th>Created By</th>
                         <th></th>
                     </tr>
                     </thead>
                     <tbody>
-                        {% for group in category.examgroup_set.all %}
+                        {% for exam in object.exam_set.all %}
                             <tr>
-                                <td>{{ group.pk }}</td>
-                                <td>{{ group.name }}</td>
-                                <td>{{ group.description }}</td>
-                                <td>{{ group.user.first_name.title }} {{ group.user.last_name.title }}</td>
+                                <td>{{ exam.pk }}</td>
+                                <td>{{ exam.name.title }}</td>
+                                <td>{{ exam.description }}</td>
                                 <td>
-                                    <a href="{% url 'exam_group:exam_group' exam_group_id=group.pk %}"
-                                       class="btn btn-primary">View</a>
-                                    <a href="{% url 'exam_group:edit_exam_group' exam_group_id=group.pk %}"
+                                    {% if object.user %}
+                                        {{ object.user.first_name.title }} {{ object.user.last_name.title }}
+                                    {% else %}
+                                        Deleted User
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a href="{% url 'exams:exam' exam_id=exam.pk %}" class="btn btn-primary">View</a>
+                                    <a href="{% url 'exams:edit_exam' exam_id=exam.pk %}"
                                        class="btn btn-success">Edit</a>
-                                    <a href="{% url 'exam_group:delete_exam_group' exam_group_id=group.pk %}"
+                                    <a href="{% url 'exams:delete_exam' exam_id=exam.pk %}"
                                        class="btn btn-danger">Delete</a>
                                 </td>
                             </tr>

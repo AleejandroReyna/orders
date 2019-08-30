@@ -78,6 +78,32 @@
                       {% endif %}
                   </div>
               </li>
+
+              <li class="nav-item dropdown">
+                  <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownExamGroups" role="button"
+                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Exam Groups</a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdownExamGroups">
+                      {% if perms.exam_group.view_examgroup %}
+                          <a href="{% url 'exam_group:list_exam_group' %}" class="dropdown-item">Exam Groups</a>
+                      {% endif %}
+                      {% if perms.exam_group.add_examgroup %}
+                          <a href="{% url 'exam_group:new_exam_group' %}" class="dropdown-item">Add Exam Group</a>
+                      {% endif %}
+                  </div>
+              </li>
+
+              <li class="nav-item dropdown">
+                  <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownExams" role="button"
+                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Exams</a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdownExams">
+                      {% if perms.exams.view_exam %}
+                          <a href="{% url 'exams:list_exams' %}" class="dropdown-item">Exams</a>
+                      {% endif %}
+                      {% if perms.exams.add_exam %}
+                          <a href="{% url 'exams:new_exam' %}" class="dropdown-item">Add Exam</a>
+                      {% endif %}
+                  </div>
+              </li>
             </ul>
             <div class="form-inline my-2 my-lg-0">
                 <ul class="navbar-nav mr-auto">
@@ -96,11 +122,9 @@
             <div class="col">
                 {% if messages %}
                   <div class="messages-content">
-                    <div class="container">
                       {% for message in messages %}
                         <div class="alert alert-{{ message.tags }}">{{ message }}</div>
                       {% endfor %}
-                    </div>
                   </div>
                 {% endif %}
             </div>

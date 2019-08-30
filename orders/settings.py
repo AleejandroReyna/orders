@@ -45,7 +45,9 @@ INSTALLED_APPS = [
     'companies.apps.CompaniesConfig',
     'offices.apps.OfficesConfig',
     'collaborators.apps.CollaboratorsConfig',
-    'categories.apps.CategoriesConfig'
+    'categories.apps.CategoriesConfig',
+    'exam_group.apps.ExamGroupConfig',
+    'exams.apps.ExamsConfig'
 ]
 
 MIDDLEWARE = [
