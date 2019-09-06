@@ -35,12 +35,89 @@
                                     {% endif %}
                                 </span>
                             </li>
+                            <li><strong>Type: </strong><span>{{ object.type.title }}</span></li>
                             <li><strong>Created At: </strong><span>{{ object.created_at }}</span></li>
                             <li><strong>Last Updated At: </strong><span>{{ object.updated_at }}</span></li>
                         </ul>
+                        <strong>Actions: </strong>
+                        <a href="{% url 'exams:edit_exam' exam_id=exam.pk %}" class="btn btn-success">Edit</a>
+                        <a href="{% url 'exams:delete_exam' exam_id=exam.pk %}" class="btn btn-danger">Delete</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    {% if not object.response_type_group %}
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h3>Response Type Group
+                        <a href="{% url 'exams:assign_response_group_to_exam' exam_id=object.pk %}"
+                           class="btn btn-primary">Add</a>
+                    </h3>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h3>Response Type Group
+                        <a href="{% url 'exams:edit_response_group_to_exam' exam_id=object.pk %}"
+                           class="btn btn-success">Edit</a>
+                    </h3>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header"><strong>Information</strong></div>
+                        <div class="card-body">
+                            <ul>
+                                <li><strong>Name: </strong><span>{{ object.response_type_group.name }}</span></li>
+                                <li><strong>Description: </strong><span>{{ object.response_type_group.description }}</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h3>Responses in Group</h3>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Value</th>
+                            <th>Weighing</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for assignation in object.response_type_group.responsetypeassignation_set.all %}
+                                <tr>
+                                    <td>{{ assignation.response_type.name.title }}</td>
+                                    <td>{{ assignation.weighing.title }}</td>
+                                    <td>
+                                        <a href="{% url 'exam_response_types_assignations:edit_response_type_assignation' response_type_assignation_id=assignation.pk %}"
+                                           class="btn btn-success">Edit</a>
+                                        <a href="#" class="btn btn-danger">Delete</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    {% endif %}
 {% endblock %}

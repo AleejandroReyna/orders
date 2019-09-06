@@ -27,5 +27,9 @@ urlpatterns = [
     path('clients/', include('clients.urls')),
     path('categories/', include('categories.urls')),
     path('exam_groups/', include('exam_group.urls')),
-    path('exams/', include('exams.urls'))
+    path('exams/', include('exams.urls')),
+    path('response_types/', include('exam_response_types.urls')),
+    path('response_type_groups/', include('exam_response_types.groups_urls')),
+    path('response_type_assignations/', include('exam_response_types.assignations_urls')),
+    path('units/', include('exam_response_types.units_urls'))
 ]

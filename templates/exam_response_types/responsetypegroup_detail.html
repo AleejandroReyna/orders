@@ -1,0 +1,77 @@
+{% extends 'base/private.html' %}
+
+{% block title %}Response Type Group: {{ object.name.capitalize }}{% endblock %}
+
+{% block content %}
+    <div class="container"> 
+        <div class="row">
+            <div class="col">
+                <h2>{{ object.name.capitalize }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header"><strong>Information</strong></div>
+                    <div class="card-body">
+                        <ul>
+                            <li><strong>Description: </strong>{{ object.description.capitalize }}</li>
+                            <li>
+                                <strong>Created By: </strong>
+                                {% if object.user %}
+                                    {{ object.user.first_name.title }} {{ object.user.last_name.title }}
+                                {% else %}
+                                    Deleted User
+                                {% endif %}
+                            </li>
+                            <li><strong>Created At: </strong><span>{{ object.created_at }}</span></li>
+                            <li><strong>Last updated At: </strong><span>{{ object.updated_at }}</span></li>
+                        </ul>
+                        <strong>Actions: </strong>
+                        <a href="{% url 'exam_response_types_groups:edit_response_type_group' response_type_group_id=object.pk %}"
+                           class="btn btn-success">Edit</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h3>Response Types
+                    <a href="{% url 'exam_response_types_groups:assign_response_type_to_group' response_type_group_id=object.pk %}" class="btn btn-primary">Assign New</a>
+                </h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Value</th>
+                        <th>Weighing</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for assignation in responsetypegroup.responsetypeassignation_set.all %}
+                            <tr>
+                                <td>{{ assignation.response_type.name.title }}</td>
+                                <td>{{ assignation.weighing.title }}</td>
+                                <td>
+                                    <a href="{% url 'exam_response_types_assignations:edit_response_type_assignation' response_type_assignation_id=assignation.pk %}"
+                                       class="btn btn-success">Edit</a>
+                                    <a href="#" class="btn btn-danger">Delete</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

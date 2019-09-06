@@ -104,6 +104,29 @@
                       {% endif %}
                   </div>
               </li>
+
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" id="navbardropdownResponses" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Responses</a>
+                    <div class="dropdown-menu" aria-labelledby="navbardropdownResponses">
+                        {% if perms.exam_response_types.view_responsetype %}
+                            <a href="{% url 'exam_response_types:response_types' %}"
+                               class="dropdown-item">Response Types</a>
+                        {% endif %}
+                        {% if perms.exam_response_types.add_responsetype %}
+                            <a href="{% url 'exam_response_types:new_response_type' %}"
+                               class="dropdown-item">Add Response Type</a>
+                        {% endif %}
+                        {% if perms.exam_response_types.view_responsetypegroup %}
+                            <a href="{% url 'exam_response_types_groups:response_type_groups' %}"
+                               class="dropdown-item">Response Type Groups</a>
+                        {% endif %}
+                        {% if perms.exam_response_types.add_responsetypegroup %}
+                            <a href="{% url 'exam_response_types_groups:new_response_type_group' %}"
+                               class="dropdown-item">Add Response Type Group</a>
+                        {% endif %}
+                    </div>
+                </li>
             </ul>
             <div class="form-inline my-2 my-lg-0">
                 <ul class="navbar-nav mr-auto">

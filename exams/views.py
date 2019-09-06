@@ -7,7 +7,7 @@ from exams import models
 
 class ExamCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = models.Exam
-    fields = ('name', 'description', 'exam_group')
+    fields = ('name', 'description', 'exam_group', 'type')
     login_url = '/auth/login'
     redirect_field_name = 'redirect_to'
     permission_required = 'exams.add_exam'
@@ -41,7 +41,7 @@ class ExamView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
 
 class ExamEditView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = models.Exam
-    fields = ('name', 'description', 'exam_group')
+    fields = ('name', 'description', 'exam_group', 'type')
     login_url = '/auth/login'
     redirect_field_name = 'redirect_to'
     permission_required = 'exams.change_exam'
@@ -81,7 +81,8 @@ class ExamDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
         return context
 
     def get_success_url(self):
-        messages.success(self.request, 'The exam with name: "%s" has been deleted' % self.object.name, extra_tags='success')
+        messages.success(self.request, 'The exam with name: "%s" has been deleted' % self.object.name,
+                         extra_tags='success')
         return reverse_lazy('exam_group:exam_group', kwargs={'exam_group_id': self.object.exam_group.pk})
 
 
@@ -90,3 +91,47 @@ class ExamListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     login_url = reverse_lazy('custom_auth:login')
     redirect_field_name = 'redirect_to'
     permission_required = 'exams.view_exam'
+
+
+class ExamAssignStaticGroupView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    model = models.Exam
+    login_url = reverse_lazy('custom_auth:login')
+    redirect_field_name = 'redirect_to'
+    permission_required = 'exams.change_exam'
+    pk_url_kwarg = 'exam_id'
+    template_name_suffix = '_assign_group_form'
+    fields = ('response_type_group',)
+
+    def get_context_data(self, **kwargs):
+        context = super(ExamAssignStaticGroupView, self).get_context_data()
+        context['action'] = 'Assign Response Group to'
+        return context
+
+    def form_valid(self, form):
+        messages.success(self.request, 'Response group added for exam: "%s".' % self.object.name)
+        return super(ExamAssignStaticGroupView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('exams:exam', kwargs={'exam_id': self.object.pk})
+
+
+class ExamEditStaticGroupView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    model = models.Exam
+    login_url = reverse_lazy('custom_auth:login')
+    redirect_field_name = 'redirect_to'
+    permission_required = 'exams.change_exam'
+    pk_url_kwarg = 'exam_id'
+    template_name_suffix = '_assign_group_form'
+    fields = ('response_type_group',)
+
+    def get_context_data(self, **kwargs):
+        context = super(ExamEditStaticGroupView, self).get_context_data()
+        context['action'] = 'Edit Response Group to'
+        return context
+
+    def form_valid(self, form):
+        messages.success(self.request, 'Response group updated for exam: "%s".' % self.object.name)
+        return super(ExamEditStaticGroupView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('exams:exam', kwargs={'exam_id': self.object.pk})

@@ -1,0 +1,52 @@
+{% extends 'base/private.html' %}
+
+{% block title %}Response Type Groups{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2>Response Type Groups</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Created By</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for object in object_list %}
+                            <tr>
+                                <td>{{ object.pk }}</td>
+                                <td>{{ object.name }}</td>
+                                <td>{{ object.description }}</td>
+                                <td>
+                                    {% if object.user %}
+                                        {{ object.user.first_name.capitalize }}
+                                        {{ object.user.last_name.capitalize }}
+                                    {% else %}
+                                        Deleted User
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a href="{% url 'exam_response_types_groups:response_type_group' response_type_group_id=object.pk %}"
+                                       class="btn btn-primary">View</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

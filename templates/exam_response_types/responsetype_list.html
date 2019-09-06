@@ -1,0 +1,52 @@
+{% extends 'base/private.html' %}
+
+{% block title %}Response Types{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2>Response Types</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Created By</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for responsetype in responsetype_list %}
+                            <tr>
+                                <td>{{ responsetype.pk }}</td>
+                                <td>{{ responsetype.name }}</td>
+                                <td>{{ responsetype.description }}</td>
+                                <td>
+                                    {% if responsetype.user %}
+                                        {{ responsetype.user.first_name.capitalize }}
+                                        {{ responsetype.user.last_name.capitalize }}
+                                    {% else %}
+                                        Deleted User
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a href="{% url 'exam_response_types:response_type' response_type_id=responsetype.pk %}"
+                                       class="btn btn-primary">View</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 
 class ResponseType(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, unique=True)
     description = models.TextField(null=True)
     user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -14,11 +14,12 @@ class ResponseType(models.Model):
 
 
 class ResponseTypeGroup(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, unique=True)
     description = models.TextField(null=True)
     user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    response_types = models.ManyToManyField(ResponseType, through='ResponseTypeAssignation')
 
     def __str__(self):
         return "%s" % self.name
@@ -36,4 +37,15 @@ class ResponseTypeAssignation(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return "%s__%s__%s" % ( self.response_type.pk, self.response_type_group.pk, self.weighing )
+        return "%s__%s__%s" % (self.response_type.pk, self.response_type_group.pk, self.weighing)
+
+
+class Unit(models.Model):
+    name = models.CharField(max_length=20, unique=True)
+    description = models.TextField()
+    user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return "%s" % self.name
