@@ -41,6 +41,10 @@
                                 <td>
                                     <a href="{% url 'exam_response_types:response_type' response_type_id=responsetype.pk %}"
                                        class="btn btn-primary">View</a>
+                                    <a href="{% url 'exam_response_types:edit_response_type' response_type_id=responsetype.pk %}"
+                                       class="btn btn-success">Edit</a>
+                                    <a href="{% url 'exam_response_types:delete_response_type' response_type_id=responsetype.pk %}"
+                                       class="btn btn-danger">Delete</a>
                                 </td>
                             </tr>
                         {% endfor %}

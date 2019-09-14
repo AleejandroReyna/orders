@@ -18,14 +18,50 @@ class ResponseTypeCreateView(LoginRequiredMixin, PermissionRequiredMixin, Create
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        messages.success(self.request, 'The response type with name: "%s" has been added.' % form.instance.name,
-                         extra_tags='success')
         return super(ResponseTypeCreateView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super(ResponseTypeCreateView, self).get_context_data()
         context['action'] = 'Create'
         return context
+
+
+class ResponseTypeEditView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    model = models.ResponseType
+    fields = ('name', 'description')
+    login_url = reverse_lazy('custom_auth:login')
+    redirect_field_name = 'redirect_to'
+    pk_url_kwarg = 'response_type_id'
+    permission_required = 'exam_response_types.change_responsetype'
+
+    def get_success_url(self):
+        messages.success(self.request, 'The response type with name: "%s" has been added.' % self.object.name,
+                         extra_tags='success')
+        return reverse_lazy('exam_response_types:response_type', kwargs={'response_type_id': self.object.pk})
+
+    def get_context_data(self, **kwargs):
+        context = super(ResponseTypeEditView, self).get_context_data()
+        context['action'] = 'Edit'
+        return context
+
+
+class ResponseTypeDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    model = models.ResponseType
+    login_url = reverse_lazy('custom_auth:login')
+    redirect_field_name = 'redirect_to'
+    pk_url_kwarg = 'response_type_id'
+    permission_required = 'exam_response_types.delete_responsetype'
+    template_name_suffix = '_form'
+
+    def get_context_data(self, **kwargs):
+        context = super(ResponseTypeDeleteView, self).get_context_data()
+        context['action'] = 'Delete'
+        context['description'] = 'Are you sure to delete response type with name: "%s"?' % self.object.name
+        return context
+
+    def get_success_url(self):
+        messages.success(self.request, 'Response type with name: "%s" has been deleted' % self.object.name)
+        return reverse_lazy('exam_response_types:response_types')
 
 
 class ResponseTypeView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
@@ -208,6 +244,7 @@ class UnitCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.name = form.instance.name.lower()
+        form.instance.user = self.request.user
         count = models.Unit.objects.filter(name=form.instance.name.lower()).count()
         if count == 0:
             return super(UnitCreateView, self).form_valid(form)
@@ -221,6 +258,57 @@ class UnitCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     def get_success_url(self):
         messages.success(self.request, 'Unit with name: "%s" has been added.' % self.object.name)
         return reverse_lazy('units:unit', kwargs={'unit_id': self.object.pk})
+
+
+class UnitEditView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    model = models.Unit
+    login_url = reverse_lazy('custom_auth:login')
+    redirect_field_name = 'redirect_to'
+    fields = ('name', 'description')
+    permission_required = 'exam_response_types.change_unit'
+    pk_url_kwarg = 'unit_id'
+    template_name_suffix = '_form'
+
+    def get_context_data(self, **kwargs):
+        context = super(UnitEditView, self).get_context_data()
+        context['action'] = 'Edit'
+        return context
+
+    def form_valid(self, form):
+        form.instance.name = form.instance.name.lower()
+        count = models.Unit.objects.filter(name=form.instance.name.lower()).count()
+        print(count)
+        if count == 1 or count == 0:
+            return super(UnitEditView, self).form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, 'Verified if name is unique.', extra_tags='danger')
+        return super(UnitEditView, self).form_invalid(form)
+
+    def get_success_url(self):
+        messages.success(self.request, 'Unit with name: "%s" has been updated.' % self.object.name)
+        return reverse_lazy('units:unit', kwargs={'unit_id': self.object.pk})
+
+
+class UnitDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    model = models.Unit
+    login_url = reverse_lazy('custom_auth:login')
+    redirect_field_name = 'redirect_to'
+    permission_required = 'exam_response_types.change_unit'
+    pk_url_kwarg = 'unit_id'
+    template_name_suffix = '_form'
+
+    def get_success_url(self):
+        messages.success(self.request, 'The unit with name: "%s" has been deleted' % self.object.name)
+        return reverse_lazy('units:unit_list')
+
+    def get_context_data(self, **kwargs):
+        context = super(UnitDeleteView, self).get_context_data()
+        context['action'] = 'Delete'
+        context['description'] = 'Are you sure to delete Unit with name: "%s"?' % self.object.name
+        return context
 
 
 class UnitView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):

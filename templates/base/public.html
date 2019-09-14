@@ -26,6 +26,7 @@
         <nav>
             <ul>
                 {% if request.user.is_authenticated %}
+                    <li><a href="{% url 'dashboard:dashboard' %}">Dashboard</a></li>
                     <li><a href="{% url 'custom_auth:logout' %}">Logout</a></li>
                 {% else %}
                     <li><a href="{% url 'custom_auth:login' %}">login</a></li>

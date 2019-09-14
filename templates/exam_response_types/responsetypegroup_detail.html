@@ -60,7 +60,10 @@
                     <tbody>
                         {% for assignation in responsetypegroup.responsetypeassignation_set.all %}
                             <tr>
-                                <td>{{ assignation.response_type.name.title }}</td>
+                                <td>
+                                    <a href="{% url 'exam_response_types:response_type' response_type_id=assignation.response_type.pk %}">
+                                        {{ assignation.response_type.name.title }}</a>
+                                </td>
                                 <td>{{ assignation.weighing.title }}</td>
                                 <td>
                                     <a href="{% url 'exam_response_types_assignations:edit_response_type_assignation' response_type_assignation_id=assignation.pk %}"

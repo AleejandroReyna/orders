@@ -1,0 +1,46 @@
+{% extends 'base/private.html' %}
+
+{% block title %}Units{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2>Units <a href="{% url 'units:new_unit' %}" class="btn btn-primary">Add New</a></h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for object in object_list %}
+                            <tr>
+                                <td>{{ object.pk }}</td>
+                                <td>{{ object.name }}</td>
+                                <td>{{ object.description }}</td>
+                                <td>
+                                    <a href="{% url 'units:unit' unit_id=object.pk %}" class="btn btn-primary">View</a>
+                                    <a href="{% url 'units:edit_unit' unit_id=object.pk %}"
+                                       class="btn btn-success">Edit</a>
+                                    <a href="{% url 'units:delete_unit' unit_id=object.pk %}"
+                                       class="btn btn-danger">Delete</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

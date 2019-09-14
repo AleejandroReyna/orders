@@ -106,9 +106,9 @@
               </li>
 
                 <li class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" id="navbardropdownResponses" role="button"
+                    <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownResponses" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Responses</a>
-                    <div class="dropdown-menu" aria-labelledby="navbardropdownResponses">
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownResponses">
                         {% if perms.exam_response_types.view_responsetype %}
                             <a href="{% url 'exam_response_types:response_types' %}"
                                class="dropdown-item">Response Types</a>
@@ -125,8 +125,15 @@
                             <a href="{% url 'exam_response_types_groups:new_response_type_group' %}"
                                class="dropdown-item">Add Response Type Group</a>
                         {% endif %}
+                        {% if perms.exam_response_types.view_unit %}
+                            <a href="{% url 'units:unit_list' %}" class="dropdown-item">Units</a>
+                        {% endif %}
+                        {% if perms.exam_response_types.add_unit %}
+                            <a href="{% url 'units:new_unit' %}" class="dropdown-item">Add Unit</a>
+                        {% endif %}
                     </div>
                 </li>
+
             </ul>
             <div class="form-inline my-2 my-lg-0">
                 <ul class="navbar-nav mr-auto">

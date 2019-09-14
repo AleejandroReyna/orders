@@ -10,4 +10,34 @@
             </div>
         </div>
     </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header"><strong>Information</strong></div>
+                    <div class="card-body">
+                        <ul>
+                            <li><strong>Description: </strong><span>{{ object.description }}</span></li>
+                            <li>
+                                <strong>Created By: </strong>
+                                <span>
+                                    {% if object.user %}
+                                        {{ object.user.first_name.title }} {{ object.user.last_name.title }}
+                                    {% else %}
+                                        Deleted User
+                                    {% endif %}
+                                </span>
+                            </li>
+                            <li><strong>Created At: </strong><span>{{ object.created_at }}</span></li>
+                            <li><strong>Last Updated At: </strong><span>{{ object.updated_at }}</span></li>
+                        </ul>
+                        <strong>Actions: </strong>
+                        <a href="{% url 'units:edit_unit' unit_id=object.pk %}" class="btn btn-success">Edit</a>
+                        <a href="{% url 'units:delete_unit' unit_id=object.pk %}" class="btn btn-danger">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
