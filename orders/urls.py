@@ -31,5 +31,6 @@ urlpatterns = [
     path('response_types/', include('exam_response_types.urls')),
     path('response_type_groups/', include('exam_response_types.groups_urls')),
     path('response_type_assignations/', include('exam_response_types.assignations_urls')),
-    path('units/', include('exam_response_types.units_urls'))
+    path('units/', include('exam_response_types.units_urls')),
+    path('exam_dynamic_assignations/', include('exams.assignations_urls'))
 ]

@@ -12,5 +12,7 @@ urlpatterns = [
          name='assign_response_group_to_exam'),
     path('<int:exam_id>/edit_response_group/', views.ExamEditStaticGroupView.as_view(),
          name='edit_response_group_to_exam'),
-    path('<int:exam_id>/delete/', views.ExamDeleteView.as_view(), name='delete_exam')
+    path('<int:exam_id>/delete/', views.ExamDeleteView.as_view(), name='delete_exam'),
+    path('<int:exam_id>/assign_dynamic_assignation/', views.ExamDynamicAssignationCreateView.as_view(),
+         name='assign_dynamic_assignation_to_exam')
 ]

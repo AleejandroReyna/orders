@@ -1,6 +1,7 @@
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse_lazy
+from django.shortcuts import get_object_or_404, redirect
 from django.contrib import messages
 from exams import models
 
@@ -135,3 +136,46 @@ class ExamEditStaticGroupView(LoginRequiredMixin, PermissionRequiredMixin, Updat
 
     def get_success_url(self):
         return reverse_lazy('exams:exam', kwargs={'exam_id': self.object.pk})
+
+
+class ExamDynamicAssignationCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    model = models.DynamicExamAssignation
+    login_url = reverse_lazy('custom_auth:login')
+    redirect_field_name = 'redirect_to'
+    permission_required = 'exams.add_dynamicexamassignation'
+    fields = ('unit', 'min', 'max')
+
+    def get_context_data(self, **kwargs):
+        context = super(ExamDynamicAssignationCreateView, self).get_context_data()
+        context['action'] = 'Create'
+        context['exam'] = get_object_or_404(models.Exam, id=self.kwargs['exam_id'])
+        return context
+
+    def form_valid(self, form):
+        exam = get_object_or_404(models.Exam, id=self.kwargs['exam_id'])
+        assignation = form.save()
+        exam.dynamic_exam_assignation = assignation
+        exam.save()
+        messages.success(self.request, 'Dynamic assignation for exam: "%s" with min: %s and max: %s created.' %
+                         (exam.name, assignation.min, assignation.max))
+        return redirect('exams:exam', exam_id=exam.pk)
+
+
+class ExamDynamicAssignationEditView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    model = models.DynamicExamAssignation
+    login_url = reverse_lazy('custom_auth:login')
+    redirect_field_name = 'redirect_to'
+    permission_required = 'exams.change_dynamicexamassignation'
+    fields = ('unit', 'min', 'max')
+    pk_url_kwarg = 'dynamic_exam_assignation_id'
+
+    def get_context_data(self, **kwargs):
+        context = super(ExamDynamicAssignationEditView, self).get_context_data()
+        context['action'] = 'Edit'
+        context['exam'] = self.object.exam
+        return context
+
+    def get_success_url(self):
+        messages.success(self.request, 'Exam Assignation for exam: "%s" has been updated.' %
+                         self.object.exam.name.capitalize())
+        return reverse_lazy('exams:exam', kwargs={'exam_id': self.object.exam.pk})
