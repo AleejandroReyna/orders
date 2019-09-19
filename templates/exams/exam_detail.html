@@ -160,7 +160,7 @@
                                 <td>{{ object.dynamic_exam_assignation.max }}</td>
                                 <td>
                                     <a href="{% url 'exam_dynamic_assignations:edit_assignation' dynamic_exam_assignation_id=object.dynamic_exam_assignation.pk %}" class="btn btn-success">Edit</a>
-                                    <a href="#" class="btn btn-danger">Delete</a>
+                                    <a href="{% url 'exam_dynamic_assignations:delete_assignation' dynamic_exam_assignation_id=object.dynamic_exam_assignation.pk %}" class="btn btn-danger">Delete</a>
                                 </td>
                             </tr>
                             </tbody>

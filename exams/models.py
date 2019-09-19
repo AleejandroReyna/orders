@@ -25,7 +25,7 @@ class Exam(models.Model):
     type = models.CharField(max_length=20, null=True, choices=TYPE_CHOICES)
     response_type_group = models.ForeignKey(ResponseTypeGroup, on_delete=models.SET_NULL, null=True)
     unit = models.ForeignKey(Unit, null=True, on_delete=models.SET_NULL)
-    dynamic_exam_assignation = models.OneToOneField(DynamicExamAssignation, null=True, on_delete=models.CASCADE)
+    dynamic_exam_assignation = models.OneToOneField(DynamicExamAssignation, null=True, on_delete=models.SET_NULL)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

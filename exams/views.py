@@ -179,3 +179,22 @@ class ExamDynamicAssignationEditView(LoginRequiredMixin, PermissionRequiredMixin
         messages.success(self.request, 'Exam Assignation for exam: "%s" has been updated.' %
                          self.object.exam.name.capitalize())
         return reverse_lazy('exams:exam', kwargs={'exam_id': self.object.exam.pk})
+
+
+class ExamDynamicAssignationDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    model = models.DynamicExamAssignation
+    login_url = reverse_lazy('custom_auth:login')
+    redirect_field_name = 'redirect_to'
+    permission_required = 'exams.delete_dynamicexamassignation'
+    pk_url_kwarg = 'dynamic_exam_assignation_id'
+
+    def get_context_data(self, **kwargs):
+        context = super(ExamDynamicAssignationDeleteView, self).get_context_data()
+        context['action'] = 'Delete'
+        context['description'] = 'Are you sure to delete this assignation?'
+        return context
+
+    def get_success_url(self):
+        messages.success(self.request, 'The assignation for exam: "%s" has been deleted.' %
+                         self.object.exam.name.title())
+        return reverse_lazy('exams:exam', kwargs={'exam_id': self.object.exam.pk})

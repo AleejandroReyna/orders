@@ -18,12 +18,32 @@
     <div class="container">
         <div class="row">
             <div class="col">
+                <div class="card">
+                    <div class="card-header">Information</div>
+                    <div class="card-body">
+                        <ul>
+                            <li>
+                                <strong>Exam: </strong>
+                                <a href="{% url 'exams:exam' exam_id=object.exam.pk %}">{{ object.exam.name.title }}</a>
+                            </li>
+                            <li>
+                                <strong>Unit: </strong>
+                                <a href="{% url 'units:unit' unit_id=object.unit.pk %}">{{ object.unit.name }}</a>
+                            </li>
+                            <li><strong>Min: </strong><span>{{ object.min }}</span></li>
+                            <li><strong>Max: </strong><span>{{ object.max }}</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
                 <form action="." method="post">
                     {% csrf_token %}
-                    <div class="form-group">
-                        <label for="">Exam: </label>
-                        <input type="text" disabled value="{{ exam.name.capitalize }}" class="form-control">
-                    </div>
                     {% for field in form %}
                         <div class="form-group">
                             {{ field.label_tag }}
