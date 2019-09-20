@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from phonenumber_field.modelfields import PhoneNumberField
 from crequest.middleware import CrequestMiddleware
+from exams.models import Exam
 
 
 class Company(models.Model):
@@ -13,6 +14,7 @@ class Company(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     users = models.ManyToManyField(User, through='CompanyUserRole')
+    companies = models.ManyToManyField(Exam, through='CompanyExamAssociation')
 
     def __str__(self):
         return "%s" % self.name
@@ -70,3 +72,11 @@ class OfficeUserRole(models.Model):
 
     def __str__(self):
         return "%s_%s_%s" % (self.office.pk, self.user.pk, self.company_role.pk)
+
+
+class CompanyExamAssociation(models.Model):
+    company = models.ForeignKey(Company, null=True, on_delete=models.SET_NULL)
+    exam = models.ForeignKey(Exam, null=True, on_delete=models.SET_NULL)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
