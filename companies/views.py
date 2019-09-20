@@ -3,6 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from companies import models
 from django.urls import reverse_lazy
 from django.contrib.messages import success
+from django.shortcuts import get_object_or_404
 
 
 class CompanyCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
@@ -109,3 +110,16 @@ class CreateCompanyOfficeView(LoginRequiredMixin, PermissionRequiredMixin, Creat
 
     def get_success_url(self):
         return reverse_lazy('offices:office', kwargs={'office_id': self.object.pk})
+
+
+class CompanyExamsListView(PermissionRequiredMixin, ListView):
+    model = models.CompanyExamAssociation
+    permission_required = 'companies.view_companyexamassociation'
+    redirect_field_name = 'redirect_to'
+    login_url = '/auth/login'
+    permission_denied_message = 'Unauthorized'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(CompanyExamsListView, self).get_context_data()
+        context['company'] = get_object_or_404(models.Company, id=self.kwargs['company_id'])
+        return context

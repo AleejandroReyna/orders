@@ -1,0 +1,30 @@
+{% extends 'base/private.html' %}
+
+{% block title %}Company Exams{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2>Company Exams</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header"><strong>Information</strong></div>
+                    <div class="card-body">
+                        <ul>
+                            <li><strong>Company Name: </strong><a href="{% url 'companies:company' company_id=company.pk %}">{{ company.name.title }}</a></li>
+                            <li><strong>Company Exams Count: </strong><span>{{ company.companyexamassociation_set.count }}</span></li>
+                            <li></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
