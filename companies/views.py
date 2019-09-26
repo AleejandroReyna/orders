@@ -200,7 +200,12 @@ class EditCompanyExamAssociationValueTypeStaticView(PermissionRequiredMixin, Upd
     def get_initial(self):
         initial = super(EditCompanyExamAssociationValueTypeStaticView, self).get_initial()
         if self.object.type == 'static':
-            initial['response_type_group'] = self.object.company_exam_association.exam.response_type_group.pk
+            try:
+                initial['response_type_group'] = self.object.response_type_group if self.object.response_type_group.pk \
+                    else self.object.company_exam_association.exam.response_type_group.pk
+            except Exception as e:
+                print(e)
+                pass
         return initial
 
     def get_success_url(self):
@@ -214,12 +219,32 @@ class EditCompanyExamAssociationValueTypeDynamicView(EditCompanyExamAssociationV
 
     def get_initial(self):
         initial = super(EditCompanyExamAssociationValueTypeDynamicView, self).get_initial()
+        print(initial)
         if self.object.type == 'dynamic':
-            initial['unit'] = self.object.company_exam_association.exam.dynamicexamassignation.unit.pk
-            initial['min'] = self.object.company_exam_association.exam.dynamicexamassignation.min
-            initial['max'] = self.object.company_exam_association.exam.dynamicexamassignation.max
+            try:
+                initial['unit'] = self.object.unit if self.object.unit else \
+                    self.object.company_exam_association.exam.dynamicexamassignation.unit.pk
+                initial['min'] = self.object.min if self.object.min else \
+                    self.object.company_exam_association.exam.dynamicexamassignation.min
+                initial['max'] = self.object.max if self.object.max else \
+                    self.object.company_exam_association.exam.dynamicexamassignation.max
+            except Exception as e:
+                print(e)
+                pass
         return initial
 
 
 class EditCompanyExamAssociationValueView(EditCompanyExamAssociationValueTypeStaticView):
     fields = ('type',)
+
+
+class CompanyExamAssociationDeleteView(PermissionRequiredMixin, DeleteView):
+    model = models.CompanyExamAssociation
+    pk_url_kwarg = 'exam_association_id'
+    login_url = reverse_lazy('custom_auth:login')
+    permission_required = 'companies.delete_companyexamassociationvalue'
+    redirect_field_name = 'redirect_to'
+
+    def get_success_url(self):
+        messages.success(self.request, 'Company Exam Association has been deleted.')
+        return reverse_lazy('companies:list_company_exams', kwargs=dict(company_id=self.object.company.pk))

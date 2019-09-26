@@ -1,0 +1,93 @@
+{% extends 'base/private.html' %}
+
+{% block title %}
+    Delete Company Exam Association
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2>Delete Company Exam Assignation</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <p>Are you sure to delete this assignation?</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header"><strong>Information</strong></div>
+                    <div class="card-body">
+                        <h5>General</h5>
+                        <ul>
+                            <li><strong>Company: </strong>
+                                <a href="{% url 'companies:company' company_id=object.company.pk %}" target="_blank">
+                                    {{ object.company.name.capitalize }}</a>
+                            </li>
+                            <li>
+                                <strong>Exam: </strong>
+                                <a href="{% url 'exams:exam' exam_id=object.exam.pk %}" target="_blank">{{ object.exam.name.title }}</a>
+                            </li>
+                            {% if object.companyexamassociationvalue.type %}
+                                <li>
+                                    <strong>Type: </strong>
+                                    <span>{{ object.companyexamassociationvalue.type.title }}</span>
+                                </li>
+                            {% endif %}
+                        </ul>
+                        {% if object.companyexamassociationvalue.type %}
+                            <h5>Values</h5>
+                            {% if object.companyexamassociationvalue.type == 'dynamic' %}
+                                <ul>
+                                {% if object.companyexamassociationvalue.unit %}
+                                    <li><strong>Unit: </strong>
+                                        <a href="{% url 'units:unit' unit_id=object.companyexamassociationvalue.unit.pk %}"
+                                           target="_blank">{{ object.companyexamassociationvalue.unit.name }}</a>
+                                    </li>
+                                {% endif %}
+                                    <li>
+                                        <strong>Min: </strong>
+                                        <span>{{ object.companyexamassociationvalue.min }}</span>
+                                    </li>
+                                    <li>
+                                        <strong>Max: </strong>
+                                        <span>{{ object.companyexamassociationvalue.max }}</span>
+                                    </li>
+                                </ul>
+                            {% endif %}
+
+                            {% if object.companyexamassociationvalue.type == 'static' %}
+                                <ul>
+                                    {% if object.companyexamassociationvalue.response_type_group %}
+                                        <li>
+                                            <strong>Response Type Group: </strong>
+                                            <a href="{% url 'exam_response_types_groups:response_type_group' response_type_group_id=object.companyexamassociationvalue.response_type_group.pk %}">
+                                                {{ object.companyexamassociationvalue.response_type_group.name.title }}</a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <form action="." method="post">
+                    {% csrf_token %}
+                    <a href="{{request.META.HTTP_REFERER}}" class="btn btn-outline-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-primary">Delete Company Exam Association</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

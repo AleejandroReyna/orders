@@ -1,6 +1,7 @@
 from django.urls import path
 from companies.views import EditCompanyExamAssociationValueTypeStaticView, \
-    EditCompanyExamAssociationValueTypeDynamicView, EditCompanyExamAssociationValueView
+    EditCompanyExamAssociationValueTypeDynamicView, EditCompanyExamAssociationValueView, \
+    CompanyExamAssociationDeleteView
 
 app_name = 'company_exams'
 
@@ -11,5 +12,7 @@ urlpatterns = [
          EditCompanyExamAssociationValueTypeDynamicView.as_view(), name='update_exam_association_value_dynamic'),
     path('<int:exam_association_value_id>/edit/', EditCompanyExamAssociationValueView.as_view(),
          name='update_exam_association_value'),
+    path('<int:exam_association_id>/delete/', CompanyExamAssociationDeleteView.as_view(),
+         name='delete_exam_association')
 
 ]
