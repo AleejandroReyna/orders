@@ -6,7 +6,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h2>Exams</h2>
+                <h2>Exams <a href="{% url 'exams:new_exam' %}" class="btn btn-primary">Add</a></h2>
             </div>
         </div>
     </div>
@@ -19,6 +19,7 @@
                     <tr>
                         <th>Name</th>
                         <th>Exam Group</th>
+                        <th>Type</th>
                         <th>Created By</th>
                         <th></th>
                     </tr>
@@ -30,6 +31,7 @@
                                 <td>
                                     <a href="{% url 'exam_group:exam_group' exam_group_id=exam.exam_group.pk %}">
                                         {{ exam.exam_group.name }}</a></td>
+                                <td>{{ exam.type.capitalize }}</td>
                                 <td>
                                     {% if exam.user %}
                                         {{ exam.user.first_name.title }} {{ exam.user.last_name.title }}

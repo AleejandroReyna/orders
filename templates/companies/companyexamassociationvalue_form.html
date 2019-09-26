@@ -1,0 +1,47 @@
+{% extends 'base/private.html' %}
+{% load widget_tweaks %}
+
+{% block title %}{{ action }} Exam Association Value{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2>{{ action }} Exam Association Value</h2>
+                {% if description %}
+                    <p>{{ description }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <form action="." method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="">Company: </label>
+                        <input type="text" class="form-control" disabled value="{{ company.name.title }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Exam: </label>
+                        <input type="text" class="form-control" disabled value="{{ exam.name.title }}">
+                    </div>
+                    {% for field in form %}
+                        <div class="form-group">
+                            {{ field.label_tag }}
+                            {% render_field field class='form-control' %}
+                            {% if field.help_text %}
+                            <p class="help">{{ field.help_text|safe }}</p>
+                            {% endif %}
+                            {{ field.errors }}
+                        </div>
+                    {% endfor %}
+                    <a href="{{request.META.HTTP_REFERER}}" class="btn btn-outline-secondary">Cancel</a>
+                    <button role="submit" class="btn btn-primary">{{ action }} Exam Association Value</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

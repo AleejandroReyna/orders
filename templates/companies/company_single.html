@@ -20,11 +20,16 @@
                     </div>
                     <div class="card-body">
                         <ul>
-                            <li>Description: {{ object.description }}</li>
-                            <li>Phone: {{ object.phone }}</li>
-                            <li>Address: {{ object.address }}</li>
-                            <li>Created at: {{ object.created_at }}</li>
-                            <li>Last updated at: {{ object.updated_at }}</li>
+                            <li><strong>Description: </strong><span>{{ object.description }}</span></li>
+                            <li><strong>Phone: </strong><span>{{ object.phone }}</span></li>
+                            <li><strong>Address: </strong><span>{{ object.address }}</span></li>
+                            <li>
+                                <strong>Exams count: </strong>
+                                <span>{{ object.companyexamassociation_set.count }} </span>
+                                <a href="{% url 'companies:list_company_exams' company_id=object.pk %}">View all</a>
+                            </li>
+                            <li><strong>Created at: </strong><span>{{ object.created_at }}</span></li>
+                            <li><strong>Last updated at: </strong><span>{{ object.updated_at }}</span></li>
                         </ul>
                         <strong>Actions: </strong>
                         <a href="{% url 'companies:edit_company' company_id=object.pk %}" class="btn btn-success">Edit</a>

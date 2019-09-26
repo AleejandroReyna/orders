@@ -131,7 +131,7 @@
             <div class="row">
                 <div class="col">
                     <h3>Unit Assignation
-                        {% if not object.dynamic_exam_assignation %}
+                        {% if not object.dynamicexamassignation %}
                             <a href="{% url 'exams:assign_dynamic_assignation_to_exam' exam_id=object.pk %}"
                                class="btn btn-primary">Add</a></h3>
                         {% endif %}
@@ -139,7 +139,7 @@
             </div>
         </div>
 
-        {% if object.dynamic_exam_assignation %}
+        {% if object.dynamicexamassignation %}
             <div class="container">
                 <div class="row">
                     <div class="col">
@@ -154,13 +154,13 @@
                             </thead>
                             <tbody>
                             <tr>
-                                <td><a href="{% url 'units:unit' unit_id=object.dynamic_exam_assignation.unit.pk %}">
-                                    {{ object.dynamic_exam_assignation.unit }}</a></td>
-                                <td>{{ object.dynamic_exam_assignation.min }}</td>
-                                <td>{{ object.dynamic_exam_assignation.max }}</td>
+                                <td><a href="{% url 'units:unit' unit_id=object.dynamicexamassignation.unit.pk %}">
+                                    {{ object.dynamicexamassignation.unit }}</a></td>
+                                <td>{{ object.dynamicexamassignation.min }}</td>
+                                <td>{{ object.dynamicexamassignation.max }}</td>
                                 <td>
-                                    <a href="{% url 'exam_dynamic_assignations:edit_assignation' dynamic_exam_assignation_id=object.dynamic_exam_assignation.pk %}" class="btn btn-success">Edit</a>
-                                    <a href="{% url 'exam_dynamic_assignations:delete_assignation' dynamic_exam_assignation_id=object.dynamic_exam_assignation.pk %}" class="btn btn-danger">Delete</a>
+                                    <a href="{% url 'exam_dynamic_assignations:edit_assignation' dynamic_exam_assignation_id=object.dynamicexamassignation.pk %}" class="btn btn-success">Edit</a>
+                                    <a href="{% url 'exam_dynamic_assignations:delete_assignation' dynamic_exam_assignation_id=object.dynamicexamassignation.pk %}" class="btn btn-danger">Delete</a>
                                 </td>
                             </tr>
                             </tbody>
