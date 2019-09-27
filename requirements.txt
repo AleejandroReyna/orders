@@ -1,5 +1,6 @@
 Babel==2.7.0
 Django==2.2.4
+django-active-link==0.1.6
 django-braces==1.13.0
 django-crequest==2018.5.11
 django-phonenumber-field==3.0.1

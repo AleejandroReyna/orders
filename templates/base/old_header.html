@@ -1,0 +1,138 @@
+<header>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="{% url 'pages:home' %}">Orders</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'dashboard:dashboard' %}">Dashboard</a>
+      </li>
+
+      <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownCollaborators"
+             role="button" data-toggle="dropdown" aria-expanded="false">Collaborators</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownCollaborators">
+              {% if perms.auth.add_user %}
+                  <a href="{% url 'collaborators:new_collaborator' %}" class="dropdown-item">Add Collaborator</a>
+              {% endif %}
+          </div>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCompanies" role="button"
+           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Companies</a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownCompanies">
+          {% if perms.companies.view_company %}
+            <a class="dropdown-item" href="{% url 'companies:list_company' %}">Companies</a>
+          {% endif %}
+          {% if perms.companies.add_company %}
+            <a class="dropdown-item" href="{% url 'companies:new_company' %}">Add Company</a>
+          {% endif %}
+        </div>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownOffices" role="button"
+           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Offices</a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownOffices">
+            {% if perms.companies.add_office %}
+                <a class="dropdown-item" href="{% url 'offices:new_office' %}">Add Office</a>
+            {% endif %}
+        </div>
+      </li>
+
+      <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownClients" role="button"
+             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Clients</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownClients">
+              {% if perms.auth.add_user %}
+                  <a href="{% url 'clients:create_client' %}" class="dropdown-item">Add Client</a>
+              {% endif %}
+          </div>
+      </li>
+
+      <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownCategories" role="button"
+             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownCategories">
+              {% if perms.categories.view_category %}
+                  <a href="{% url 'categories:categories' %}" class="dropdown-item">Categories</a>
+              {% endif %}
+              {% if perms.categories.add_category %}
+                  <a href="{% url 'categories:new_category' %}" class="dropdown-item">Add Category</a>
+              {% endif %}
+          </div>
+      </li>
+
+      <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownExamGroups" role="button"
+             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Exam Groups</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownExamGroups">
+              {% if perms.exam_group.view_examgroup %}
+                  <a href="{% url 'exam_group:list_exam_group' %}" class="dropdown-item">Exam Groups</a>
+              {% endif %}
+              {% if perms.exam_group.add_examgroup %}
+                  <a href="{% url 'exam_group:new_exam_group' %}" class="dropdown-item">Add Exam Group</a>
+              {% endif %}
+          </div>
+      </li>
+
+      <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownExams" role="button"
+             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Exams</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownExams">
+              {% if perms.exams.view_exam %}
+                  <a href="{% url 'exams:list_exams' %}" class="dropdown-item">Exams</a>
+              {% endif %}
+              {% if perms.exams.add_exam %}
+                  <a href="{% url 'exams:new_exam' %}" class="dropdown-item">Add Exam</a>
+              {% endif %}
+          </div>
+      </li>
+
+        <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownResponses" role="button"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Responses</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownResponses">
+                {% if perms.exam_response_types.view_responsetype %}
+                    <a href="{% url 'exam_response_types:response_types' %}"
+                       class="dropdown-item">Response Types</a>
+                {% endif %}
+                {% if perms.exam_response_types.add_responsetype %}
+                    <a href="{% url 'exam_response_types:new_response_type' %}"
+                       class="dropdown-item">Add Response Type</a>
+                {% endif %}
+                {% if perms.exam_response_types.view_responsetypegroup %}
+                    <a href="{% url 'exam_response_types_groups:response_type_groups' %}"
+                       class="dropdown-item">Response Type Groups</a>
+                {% endif %}
+                {% if perms.exam_response_types.add_responsetypegroup %}
+                    <a href="{% url 'exam_response_types_groups:new_response_type_group' %}"
+                       class="dropdown-item">Add Response Type Group</a>
+                {% endif %}
+                {% if perms.exam_response_types.view_unit %}
+                    <a href="{% url 'units:unit_list' %}" class="dropdown-item">Units</a>
+                {% endif %}
+                {% if perms.exam_response_types.add_unit %}
+                    <a href="{% url 'units:new_unit' %}" class="dropdown-item">Add Unit</a>
+                {% endif %}
+            </div>
+        </li>
+
+    </ul>
+    <div class="form-inline my-2 my-lg-0">
+        <ul class="navbar-nav mr-auto">
+        {% if request.user.is_authenticated %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'custom_auth:logout' %}">Logout</a></li>
+        {% else %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'custom_auth:login' %}">login</a></li>
+        {% endif %}
+        </ul>
+    </div>
+  </div>
+</nav>
+</header>

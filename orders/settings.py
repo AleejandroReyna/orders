@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     'exam_group.apps.ExamGroupConfig',
     'exams.apps.ExamsConfig',
     'clients.apps.ClientsConfig',
-    'exam_response_types.apps.ExamResponseTypesConfig'
+    'exam_response_types.apps.ExamResponseTypesConfig',
+    'active_link'
 ]
 
 MIDDLEWARE = [
@@ -133,3 +134,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "assets")
+]
+
+MESSAGE_TAGS = {
+    10: 'alert-info',
+    20: 'alert-info',
+    25: 'alert-success',
+    30: 'alert-warning',
+    40: 'alert-danger'
+}
