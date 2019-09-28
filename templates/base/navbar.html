@@ -30,3 +30,58 @@
       </div>
     </div>
 </li>
+
+<li class="nav-item dropdown">
+    <a href="#" class="nav-link collapsed" data-toggle="collapse" data-target="#clientsCollapse" aria-expanded="true"
+       aria-controls="clientsCollapse">
+        <i class="fas fa-user fa-fw"></i>
+        <span>Clients</span>
+    </a>
+    <div id="clientsCollapse" class="collapse" aria-labelledby="clientsCollapse" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Clients:</h6>
+            <a href="#" class="collapse-item">Clients</a>
+            <a class="collapse-item {% active_link 'clients:create_client' strict=True %}"
+               href="{% url 'clients:create_client' %}">Add client</a>
+        </div>
+    </div>
+</li>
+
+<span class="sidebar-heading">Utilities</span>
+
+<li class="nav-item dropdown">
+    <a href="#" class="nav-link collapsed" data-toggle="collapse" data-target="#categoriesCollapse"
+       aria-expanded="true" aria-controls="categoriesCollapse">
+        <i class="far fa-list-alt"></i>
+        <span>Categories</span>
+    </a>
+    <div class="collapse" id="categoriesCollapse" aria-labelledby="categoriesCollapse" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Categories</h6>
+            <a class="collapse-item {% active_link 'categories:categories' strict=True %}"
+               href="{% url 'categories:categories' %}">All categories</a>
+            <a class="collapse-item {% active_link 'categories:new_category' strict=True %}"
+               href="{% url 'categories:new_category' %}">Add Category</a>
+            <h6 class="collapse-header">Exam Groups</h6>
+            <a class="collapse-item" href="{% url 'exam_group:list_exam_group' %}">Exam Groups</a>
+            <a class="collapse-item" href="{% url 'exam_group:new_exam_group' %}">Add Exam Group</a>
+        </div>
+    </div>
+</li>
+
+<li class="nav-item dropdown">
+    <a href="#" class="nav-link collapsed" data-toggle="collapse" data-target="#examsCollapse"
+       aria-expanded="true" aria-controls="examsCollapse">
+        <i class="far fa-list-alt"></i>
+        <span>Exams</span>
+    </a>
+    <div class="collapse" id="examsCollapse"  aria-labelledby="examsCollapse" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Categories</h6>
+            <a class="collapse-item {% active_link 'categories:categories' strict=True %}"
+               href="{% url 'categories:categories' %}">All categories</a>
+            <a class="collapse-item {% active_link 'categories:new_category' strict=True %}"
+               href="{% url 'categories:new_category' %}">Add Category</a>
+        </div>
+    </div>
+</li>
