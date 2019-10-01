@@ -32,6 +32,23 @@
 </li>
 
 <li class="nav-item dropdown">
+    <a href="#" class="nav-link collapsed" data-toggle="collapse" data-target="#collaboratorsCollapse"
+       aria-expanded="true" aria-controls="collaboratorsCollapse">
+        <i class="fas fa-user fa-fw"></i>
+        <span>Collaborators</span>
+    </a>
+    <div id="collaboratorsCollapse" class="collapse" aria-labelledby="collaboratorsCollapse"
+         data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Collaborators:</h6>
+            <a href="#" class="collapse-item">All Collaborators</a>
+            <a class="collapse-item {% active_link 'collaborators:new_collaborator' strict=True %}"
+               href="{% url 'collaborators:new_collaborator' %}">Add Collaborator</a>
+        </div>
+    </div>
+</li>
+
+<li class="nav-item dropdown">
     <a href="#" class="nav-link collapsed" data-toggle="collapse" data-target="#clientsCollapse" aria-expanded="true"
        aria-controls="clientsCollapse">
         <i class="fas fa-user fa-fw"></i>
@@ -63,8 +80,10 @@
             <a class="collapse-item {% active_link 'categories:new_category' strict=True %}"
                href="{% url 'categories:new_category' %}">Add Category</a>
             <h6 class="collapse-header">Exam Groups</h6>
-            <a class="collapse-item" href="{% url 'exam_group:list_exam_group' %}">Exam Groups</a>
-            <a class="collapse-item" href="{% url 'exam_group:new_exam_group' %}">Add Exam Group</a>
+            <a class="collapse-item {% active_link 'exam_group:list_exam_group' strict=True %}"
+               href="{% url 'exam_group:list_exam_group' %}">Exam Groups</a>
+            <a class="collapse-item {% active_link 'exam_group:new_exam_group' strict=True %}"
+               href="{% url 'exam_group:new_exam_group' %}">Add Exam Group</a>
         </div>
     </div>
 </li>
@@ -75,13 +94,41 @@
         <i class="far fa-list-alt"></i>
         <span>Exams</span>
     </a>
-    <div class="collapse" id="examsCollapse"  aria-labelledby="examsCollapse" data-parent="#accordionSidebar">
+    <div class="collapse" id="examsCollapse"  aria-labelledby="examsCollapse" data-parent="#accordionSidebar"
+         aria-expanded="true">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Categories</h6>
-            <a class="collapse-item {% active_link 'categories:categories' strict=True %}"
-               href="{% url 'categories:categories' %}">All categories</a>
-            <a class="collapse-item {% active_link 'categories:new_category' strict=True %}"
-               href="{% url 'categories:new_category' %}">Add Category</a>
+            <a class="collapse-item {% active_link 'exams:list_exams' strict=True %}"
+               href="{% url 'exams:list_exams' %}">Exams</a>
+            <a class="collapse-item {% active_link 'exams:new_exam' strict=True %}"
+               href="{% url 'exams:new_exam' %}">Add Exam</a>
+        </div>
+    </div>
+</li>
+
+<li class="nav-item dropdown">
+    <a href="#" class="nav-link collapsed" data-toggle="collapse" data-target="#responsesCollapse"
+       aria-expanded="true" aria-controls="responsesCollapse">
+        <i class="fas fa-reply-all"></i><span>Responses</span>
+    </a>
+    <div class="collapse" id="responsesCollapse" aria-labelledby="responsesCollapse" aria-expanded="true"
+         data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Response Types Groups</h6>
+            {% if perms.exam_response_types.view_responsetypegroup %}
+                <a href="{% url 'exam_response_types_groups:response_type_groups' %}"
+                   class="collapse-item {% active_link 'exam_response_types_groups:response_type_groups' strict=True %}">All Response Type Groups</a>
+            {% endif %}
+            <h6 class="collapse-header">Response Types</h6>
+            {% if perms.exam_response_types.view_responsetype %}
+                <a href="{% url 'exam_response_types:response_types' %}"
+                   class="collapse-item {% active_link 'exam_response_types:response_types' strict=True %}">All Response Types</a>
+            {% endif %}
+            <h6 class="collapse-header">Units</h6>
+            {% if perms.exam_response_types.view_unit %}
+                <a href="{% url 'units:unit_list' %}"
+                   class="collapse-item {% active_link 'units:unit_list' strict=True %}">All Units</a>
+            {% endif %}
         </div>
     </div>
 </li>
