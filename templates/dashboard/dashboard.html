@@ -1,96 +1,103 @@
 {% extends 'base/private.html' %}
 
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col"><h2>Dashboard</h2></div>
+    <div class="pb-2">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col"><h4>Dashboard</h4></div>
+            </div>
         </div>
     </div>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header"><strong>Collaborators</strong></div>
-                    <div class="card-body">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>First Name</th>
-                                    <th>Last Name</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            {% for collaborator in collaborators %}
-                                <tr>
-                                    <td>{{ collaborator.collaborator.pk }}</td>
-                                    <td>{{ collaborator.collaborator.first_name }}</td>
-                                    <td>{{ collaborator.collaborator.last_name }}</td>
-                                    <td><a href="#" class="btn btn-primary">View</a></td>
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                    <a href="#" class="btn btn-primary">View all</a>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header"><strong>Companies</strong></div>
-                    <div class="card-body">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Name</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for company in companies %}
+    <div class="container-fluid">
+        <div class="pb-5">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header"><strong>Collaborators</strong></div>
+                        <div class="card-body">
+                            <table class="table">
+                                <thead>
                                     <tr>
-                                        <td>{{ company.pk }}</td>
-                                        <td>{{ company.name }}</td>
-                                        <td><a class="btn btn-primary" href="{% url 'companies:company' company_id=company.pk %}">View</a></td>
+                                        <th>#</th>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for collaborator in collaborators %}
+                                    <tr>
+                                        <td>{{ collaborator.collaborator.pk }}</td>
+                                        <td>{{ collaborator.collaborator.first_name }}</td>
+                                        <td>{{ collaborator.collaborator.last_name }}</td>
+                                        <td><a href="#" class="btn btn-primary">View</a></td>
                                     </tr>
                                 {% endfor %}
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
+                        <a href="#" class="btn btn-primary">View all</a>
                     </div>
-                    <a href="{% url 'companies:list_company' %}" class="btn btn-primary">View all</a>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header"><strong>Companies</strong></div>
+                        <div class="card-body">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Name</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for company in companies %}
+                                        <tr>
+                                            <td>{{ company.pk }}</td>
+                                            <td>{{ company.name }}</td>
+                                            <td><a class="btn btn-primary" href="{% url 'companies:company' company_id=company.pk %}">View</a></td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <a href="{% url 'companies:list_company' %}" class="btn btn-primary">View all</a>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header"><strong>Offices</strong></div>
-                    <div class="card-body">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>Company</th>
-                                <th></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                                {% for office in offices %}
-                                    <tr>
-                                        <td>{{ office.pk }}</td>
-                                        <td>{{ office.name }}</td>
-                                        <td><a href="{% url 'companies:company' company_id=office.company_id %}">{{ office.company.name }}</a></td>
-                                        <td><a href="{% url 'offices:office' office_id=office.pk %}" class="btn btn-primary">View</a></td>
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
+
+        <div class="pb-5">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header"><strong>Offices</strong></div>
+                        <div class="card-body">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Company</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {% for office in offices %}
+                                        <tr>
+                                            <td>{{ office.pk }}</td>
+                                            <td>{{ office.name }}</td>
+                                            <td><a href="{% url 'companies:company' company_id=office.company_id %}">{{ office.company.name }}</a></td>
+                                            <td><a href="{% url 'offices:office' office_id=office.pk %}" class="btn btn-primary">View</a></td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

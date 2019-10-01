@@ -16,14 +16,15 @@ class CompanyCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView)
     permission_denied_message = 'Unauthorized'
     success_url = reverse_lazy('companies:list_company')
 
-    def form_valid(self, form):
-        messages.success(self.request, 'Company has been added', extra_tags='success')
-        return super(CompanyCreateView, self).form_valid(form)
-
     def get_context_data(self, **kwargs):
         context = super(CompanyCreateView, self).get_context_data()
         context['action'] = 'Create'
+        context['description'] = 'Create a company for active user.'
         return context
+
+    def get_success_url(self):
+        messages.success(self.request, 'Company has been added', extra_tags='success')
+        return super(CompanyCreateView, self).get_success_url()
 
 
 class CompanyListView(ListView):
