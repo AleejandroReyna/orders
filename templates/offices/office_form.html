@@ -4,36 +4,43 @@
 {% block title %}{{ action }} Office{% endblock %}
 
 {% block content %}
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col">
-                <h2>{{ action }} Office</h2>
-                {% if description %}
-                    <p>{{ description }}</p>
-                {% endif %}
+                <div class="pb-2">
+                    <h4>{{ action }} Office</h4>
+                    {% if description %}
+                        <p>{{ description }}</p>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>
 
-
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col">
-                <form action="." method="post">
-                    {% csrf_token %}
-                    {% for field in form %}
-                        <div class="form-group">
-                            {{ field.errors }}
-                            {{ field.label_tag }}
-                            {% render_field field class='form-control' %}
-                            {% if field.help_text %}
-                            <p class="help">{{ field.help_text|safe }}</p>
-                            {% endif %}
+                <div class="pb-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="." method="post">
+                                {% csrf_token %}
+                                {% for field in form %}
+                                    <div class="form-group">
+                                        {{ field.errors }}
+                                        {{ field.label_tag }}
+                                        {% render_field field class='form-control' %}
+                                        {% if field.help_text %}
+                                        <p class="help">{{ field.help_text|safe }}</p>
+                                        {% endif %}
+                                    </div>
+                                {% endfor %}
+                                <a href="{{request.META.HTTP_REFERER}}" class="btn btn-outline-secondary">Cancel</a>
+                                <button role="submit" class="btn btn-primary">{{ action }} Office</button>
+                            </form>
                         </div>
-                    {% endfor %}
-                    <a href="{{request.META.HTTP_REFERER}}" class="btn btn-outline-secondary">Cancel</a>
-                    <button role="submit" class="btn btn-primary">{{ action }} Office</button>
-                </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
