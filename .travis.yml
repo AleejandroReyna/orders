@@ -7,6 +7,11 @@ python:
 
 services: mysql
 
+branches:
+  only:
+  - master
+  - develop
+
 install:
   - pip install -r requirements.txt
 
