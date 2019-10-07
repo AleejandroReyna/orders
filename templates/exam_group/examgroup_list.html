@@ -1,0 +1,56 @@
+{% extends 'base/private.html' %}
+
+{% block title %}Exam Group List{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2>Exam Group List</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Created By</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for examgroup in examgroup_list %}
+                            <tr>
+                                <td>{{ examgroup.name.title }}</td>
+                                <td>
+                                    <a href="{% url 'categories:category' category_id=examgroup.category.pk %}">
+                                    {{ examgroup.category.name.title }}</a>
+                                </td>
+                                <td>
+                                    {% if examgroup.user %}
+                                        {{ examgroup.user.first_name.title }} {{ examgroup.user.last_name.title }}
+                                    {% else %}
+                                        Deleted User
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a href="{% url 'exam_group:exam_group' exam_group_id=examgroup.pk %}"
+                                       class="btn btn-primary">View</a>
+                                    <a href="{% url 'exam_group:edit_exam_group' exam_group_id=examgroup.pk %}"
+                                       class="btn btn-success">Edit</a>
+                                    <a href="{% url 'exam_group:delete_exam_group' exam_group_id=examgroup.pk %}"
+                                       class="btn btn-danger">Delete</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

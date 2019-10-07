@@ -11,10 +11,12 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+BASE_ENV = os.path.join(BASE_DIR, '.env')
+load_dotenv(dotenv_path=BASE_ENV)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -25,7 +27,7 @@ SECRET_KEY = 'b1^c+y8u$z_3kego)8=@uw*27%xv!m0_d2e&@bhqip&reif(=a'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -37,6 +39,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'phonenumber_field',
+    'widget_tweaks',
+    'pages.apps.PagesConfig',
+    'dashboard.apps.DashboardConfig',
+    'custom_auth.apps.CustomAuthConfig',
+    'companies.apps.CompaniesConfig',
+    'offices.apps.OfficesConfig',
+    'collaborators.apps.CollaboratorsConfig',
+    'categories.apps.CategoriesConfig',
+    'exam_group.apps.ExamGroupConfig',
+    'exams.apps.ExamsConfig',
+    'clients.apps.ClientsConfig',
+    'exam_response_types.apps.ExamResponseTypesConfig',
+    'active_link'
 ]
 
 MIDDLEWARE = [
@@ -47,6 +63,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'crequest.middleware.CrequestMiddleware'
 ]
 
 ROOT_URLCONF = 'orders.urls'
@@ -76,8 +93,15 @@ WSGI_APPLICATION = 'orders.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': os.getenv('DATABASE_ENGINE'),
+        'NAME': os.getenv('DATABASE_NAME'),
+        'USER': os.getenv('DATABASE_USER'),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD'),
+        'HOST': os.getenv('DATABASE_HOST'),
+        'PORT': os.getenv('DATABASE_PORT'),
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+        }
     }
 }
 
@@ -119,3 +143,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "assets")
+]
+
+MESSAGE_TAGS = {
+    10: 'alert-info',
+    20: 'alert-info',
+    25: 'alert-success',
+    30: 'alert-warning',
+    40: 'alert-danger'
+}

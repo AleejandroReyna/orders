@@ -1,0 +1,40 @@
+{% extends 'base/private.html' %}
+{% load widget_tweaks %}
+
+{% block title %}{{ action }} Company Exam association{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2>{{ action }} Company Exam Association</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <form action="." method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="">Company: </label>
+                        <input type="text" disabled class="form-control" value="{{ company.name.title }}">
+                    </div>
+                    {% for field in form %}
+                        <div class="form-group">
+                            {{ field.label_tag }}
+                            {% render_field field class='form-control' %}
+                            {% if field.help_text %}
+                            <p class="help">{{ field.help_text|safe }}</p>
+                            {% endif %}
+                            {{ field.errors }}
+                        </div>
+                    {% endfor %}
+                    <a href="{{request.META.HTTP_REFERER}}" class="btn btn-outline-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-primary">{{ action }} Company Exam Association</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

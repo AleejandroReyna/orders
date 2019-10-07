@@ -8,9 +8,12 @@ https://docs.djangoproject.com/en/2.2/howto/deployment/wsgi/
 """
 
 import os
+from django.conf import settings
+from dotenv import load_dotenv
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'orders.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'orders.production')
+load_dotenv(dotenv_path=os.path.join(settings.BASE_DIR, '.env'))
 
 application = get_wsgi_application()

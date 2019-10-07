@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {% include 'base/head.html' %}
+    <title>Orders | {% block title %}Dashboard{% endblock %}</title>
+</head>
+<body class="page-top">
+    <div id="wrapper">
+        {% include 'base/private_sidebar.html' %}
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                {% include 'base/private_header.html' %}
+
+                {% include 'base/private_alerts.html' %}
+
+                {% block content %}{% endblock %}
+            </div>
+            {% include 'base/footer.html' %}
+        </div>
+    </div>
+</body>
+    {% include 'base/scripts.html' %}
+</html>

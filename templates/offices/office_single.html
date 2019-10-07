@@ -1,0 +1,35 @@
+{% extends 'base/private.html' %}
+
+{% block title %}Office: {{ object.name }}{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2>{{ object.name }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <article class="card">
+                    <div class="card-header">Information</div>
+                    <div class="card-body">
+                        <ul>
+                            <li><strong>Company: </strong>
+                                <a href="{% url 'companies:company' company_id=object.company.pk %}">{{ object.company.name }}</a>
+                            </li>
+                            <li><strong>Phone: </strong><span>{{ object.phone }}</span></li>
+                            <li><strong>Address: </strong><span>{{ object.address }}</span></li>
+                            <strong>Actions: </strong>
+                            <a class="btn btn-success" href="{% url 'offices:edit_office' office_id=object.pk %}">Edit</a>
+                            <a class="btn btn-danger" href="{% url 'offices:delete_office' office_id=object.pk %}">Delete</a>
+                        </ul>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+{% endblock %}

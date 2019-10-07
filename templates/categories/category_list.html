@@ -1,0 +1,55 @@
+{% extends 'base/private.html' %}
+
+{% block title %}Categories{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2>Categories</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Created By</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for category in categories %}
+                            <tr>
+                                <td>{{ category.pk }}</td>
+                                <td>{{ category.name }}</td>
+                                <td>{{ category.description }}</td>
+                                <td>
+                                    {% if category.user %}
+                                        {{ category.user.first_name.title }} {{ category.user.last_name.title }}
+                                    {% else %}
+                                        Deleted user
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a href="{% url 'categories:category' category_id=category.pk %}"
+                                       class="btn btn-primary">View</a>
+                                    <a href="{% url 'categories:edit_category' category_id=category.pk %}"
+                                       class="btn btn-success">Edit</a>
+                                    <a href="{% url 'categories:delete_category' category_id=category.pk %}"
+                                       class="btn btn-danger">Delete</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

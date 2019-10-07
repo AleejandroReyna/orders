@@ -1,0 +1,115 @@
+{% extends 'base/private.html' %}
+
+{% block title %}Company Exams{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2>Company Exams Associations
+                    <a href="{% url 'companies:create_exam_association' company_id=company.pk %}" class="btn btn-primary">Add</a>
+                </h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header"><strong>Information</strong></div>
+                    <div class="card-body">
+                        <ul>
+                            <li><strong>Company Name: </strong><a href="{% url 'companies:company' company_id=company.pk %}">{{ company.name.title }}</a></li>
+                            <li><strong>Company Exams Count: </strong><span>{{ company.companyexamassociation_set.count }}</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h3>Exams Associations</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Exam</th>
+                        <th>Category</th>
+                        <th>Type</th>
+                        <th>Values</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for object in object_list %}
+                            <tr>
+                                <td><a href="{% url 'exams:exam' exam_id=object.exam.pk %}">{{ object.exam.name.title }}</a></td>
+                                <td><a href="{% url 'categories:category' category_id=object.exam.exam_group.category.pk %}">
+                                    {{ object.exam.exam_group.category.name.capitalize }}
+                                </a></td>
+                                <td>
+                                    {% if object.companyexamassociationvalue %}
+                                        {{ object.companyexamassociationvalue.type.capitalize }}
+                                        <a href="{% url 'company_exams:update_exam_association_value' exam_association_value_id=object.companyexamassociationvalue.pk %}">Edit</a>
+                                    {% else %}
+                                        <a href="{% url 'companies:create_exam_association_value' exam_association_id=object.pk %}" >Select Type</a>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if object.companyexamassociationvalue %}
+                                        {% if object.companyexamassociationvalue.type == 'dynamic' %}
+                                            {% if object.companyexamassociationvalue.unit and object.companyexamassociationvalue.min and object.companyexamassociationvalue.max %}
+                                                <ul>
+                                                    <li><strong>Unit: </strong><a href="{% url 'units:unit' unit_id=object.companyexamassociationvalue.unit.pk %}">{{ object.companyexamassociationvalue.unit.name }}</a></li>
+                                                    <li><strong>Min: </strong><span>{{ object.companyexamassociationvalue.min }}</span></li>
+                                                    <li><strong>Max: </strong><span>{{ object.companyexamassociationvalue.max }}</span></li>
+                                                </ul>
+                                            {% else %}
+                                                <span>Undefined</span>
+                                            {% endif %}
+                                        {% endif %}
+                                        {% if object.companyexamassociationvalue.type == 'static' %}
+                                            {% if object.companyexamassociationvalue.response_type_group %}
+                                                <a href="{% url 'exam_response_types_groups:response_type_group' response_type_group_id=object.companyexamassociationvalue.response_type_group.pk %}">
+                                                    {{ object.companyexamassociationvalue.response_type_group.name.title }}
+                                                </a>
+                                            {% else %}
+                                                <span>Undefined</span>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% else %}
+                                        <span>Unavailable</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if object.companyexamassociationvalue %}
+                                        {% if object.companyexamassociationvalue.type == 'dynamic' %}
+                                            <a href="{% url 'company_exams:update_exam_association_value_dynamic' exam_association_value_id=object.companyexamassociationvalue.pk %}"
+                                               class="btn btn-success">Edit Values</a>
+                                        {% endif %}
+                                        {% if object.companyexamassociationvalue.type == 'static' %}
+                                            <a href="{% url 'company_exams:update_exam_association_value_static' exam_association_value_id=object.companyexamassociationvalue.pk %}"
+                                               class="btn btn-success">Edit Values</a>
+                                        {% endif %}
+                                    {% endif %}
+                                    <a href="{% url 'company_exams:delete_exam_association' exam_association_id=object.pk %}"
+                                       class="btn btn-danger">Delete</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

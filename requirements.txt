@@ -1,0 +1,12 @@
+Babel==2.7.0
+Django==2.2.4
+django-active-link==0.1.6
+django-braces==1.13.0
+django-crequest==2018.5.11
+django-phonenumber-field==3.0.1
+django-widget-tweaks==1.4.5
+mysqlclient==1.4.4
+phonenumbers==8.10.16
+python-dotenv==0.10.3
+pytz==2019.2
+sqlparse==0.3.0

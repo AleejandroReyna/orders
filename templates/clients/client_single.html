@@ -1,0 +1,49 @@
+{% extends 'base/private.html' %}
+
+{% block title %}Clients | {{ object.first_name.title }} {{ object.last_name.title }}{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2>Client: {{ object.first_name.title }} {{ object.last_name.title }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header"><strong>Information</strong></div>
+                    <div class="card-body">
+                        <ul>
+                            <li><strong>First Name: </strong><span>{{ object.first_name }}</span></li>
+                            <li><strong>Last Name: </strong><span>{{ object.last_name }}</span></li>
+                            <li><strong>Email: </strong><span>{{ object.email }}</span></li>
+                            <li><strong>created At: </strong>{{ object.date_joined }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12"><h3>Companies to be client: </h3></div>
+            {% for company in companies %}
+                <div class="col-4">
+                    <div class="card bg-dark text-white">
+                        <img src="https://placehold.it/300x200" alt="" class="card-img">
+                        <div class="card-img-overlay">
+                            <h5 class="card-title">{{ company.name }}</h5>
+                            <a href="{% url 'companies:company' company_id=company.pk %}" class="btn btn-primary">View</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'base/private.html' %}
+
+{% block title %}Exams{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2>Exams <a href="{% url 'exams:new_exam' %}" class="btn btn-primary">Add</a></h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Exam Group</th>
+                        <th>Type</th>
+                        <th>Created By</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for exam in exam_list %}
+                            <tr>
+                                <td>{{ exam.name }}</td>
+                                <td>
+                                    <a href="{% url 'exam_group:exam_group' exam_group_id=exam.exam_group.pk %}">
+                                        {{ exam.exam_group.name }}</a></td>
+                                <td>{{ exam.type.capitalize }}</td>
+                                <td>
+                                    {% if exam.user %}
+                                        {{ exam.user.first_name.title }} {{ exam.user.last_name.title }}
+                                    {% else %}
+                                        Deleted User
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a href="{% url 'exams:exam' exam_id=exam.pk %}" class="btn btn-primary">View</a>
+                                    <a href="{% url 'exams:edit_exam' exam_id=exam.pk %}"
+                                       class="btn btn-success">Edit</a>
+                                    <a href="{% url 'exams:delete_exam' exam_id=exam.pk %}"
+                                       class="btn btn-danger">Delete</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

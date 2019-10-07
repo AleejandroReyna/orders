@@ -1,0 +1,175 @@
+{% extends 'base/private.html' %}
+
+{% block title %}Exam: {{ object.name }}{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2>Exam: {{ object.name }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header"><strong>Information</strong></div>
+                    <div class="card-body">
+                        <ul>
+                            <li><strong>Description: </strong><span>{{ object.description }}</span></li>
+                            <li>
+                                <strong>Exam Group: </strong>
+                                <a href="{% url 'exam_group:exam_group' exam_group_id=object.exam_group.pk %}">
+                                    {{ object.exam_group.name }}
+                                </a>
+                            </li>
+                            <li>
+                                <strong>Added By: </strong>
+                                <span>
+                                    {% if exam.user %}
+                                        {{ exam.user.first_name.title }} {{ exam.user.last_name.title }}
+                                    {% else %}
+                                        Deleted User
+                                    {% endif %}
+                                </span>
+                            </li>
+                            <li><strong>Type: </strong><span>{{ object.type.title }}</span></li>
+                            <li><strong>Created At: </strong><span>{{ object.created_at }}</span></li>
+                            <li><strong>Last Updated At: </strong><span>{{ object.updated_at }}</span></li>
+                        </ul>
+                        <strong>Actions: </strong>
+                        <a href="{% url 'exams:edit_exam' exam_id=exam.pk %}" class="btn btn-success">Edit</a>
+                        <a href="{% url 'exams:delete_exam' exam_id=exam.pk %}" class="btn btn-danger">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if object.type == 'static' %}
+
+        {% if not object.response_type_group %}
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <h3>Response Type Group
+                            <a href="{% url 'exams:assign_response_group_to_exam' exam_id=object.pk %}"
+                               class="btn btn-primary">Add</a>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <h3>Response Type Group
+                            <a href="{% url 'exams:edit_response_group_to_exam' exam_id=object.pk %}"
+                               class="btn btn-success">Edit</a>
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-header"><strong>Information</strong></div>
+                            <div class="card-body">
+                                <ul>
+                                    <li><strong>Name: </strong><span>{{ object.response_type_group.name }}</span></li>
+                                    <li><strong>Description: </strong><span>{{ object.response_type_group.description }}</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <h3>Responses in Group</h3>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Value</th>
+                                <th>Weighing</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for assignation in object.response_type_group.responsetypeassignation_set.all %}
+                                    <tr>
+                                        <td>{{ assignation.response_type.name.title }}</td>
+                                        <td>{{ assignation.weighing.title }}</td>
+                                        <td>
+                                            <a href="{% url 'exam_response_types_assignations:edit_response_type_assignation' response_type_assignation_id=assignation.pk %}"
+                                               class="btn btn-success">Edit</a>
+                                            <a href="#" class="btn btn-danger">Delete</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+    {% endif %}
+
+    {% if object.type == 'dynamic' %}
+
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h3>Unit Assignation
+                        {% if not object.dynamicexamassignation %}
+                            <a href="{% url 'exams:assign_dynamic_assignation_to_exam' exam_id=object.pk %}"
+                               class="btn btn-primary">Add</a></h3>
+                        {% endif %}
+                </div>
+            </div>
+        </div>
+
+        {% if object.dynamicexamassignation %}
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Unit</th>
+                                <th>Min</th>
+                                <th>Max</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><a href="{% url 'units:unit' unit_id=object.dynamicexamassignation.unit.pk %}">
+                                    {{ object.dynamicexamassignation.unit }}</a></td>
+                                <td>{{ object.dynamicexamassignation.min }}</td>
+                                <td>{{ object.dynamicexamassignation.max }}</td>
+                                <td>
+                                    <a href="{% url 'exam_dynamic_assignations:edit_assignation' dynamic_exam_assignation_id=object.dynamicexamassignation.pk %}" class="btn btn-success">Edit</a>
+                                    <a href="{% url 'exam_dynamic_assignations:delete_assignation' dynamic_exam_assignation_id=object.dynamicexamassignation.pk %}" class="btn btn-danger">Delete</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+    {% endif %}
+
+{% endblock %}

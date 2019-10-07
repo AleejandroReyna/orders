@@ -1,0 +1,98 @@
+{% extends 'base/private.html' %}
+
+{% block title %}Exam group {{ object.name }}{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2>{{ object.name }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header"><strong>Information</strong></div>
+                    <div class="card-body">
+                        <ul>
+                            <li><strong>Description: </strong><span>{{ object.description }}</span></li>
+                            <li>
+                                <strong>Created By: </strong>
+                                <span>
+                                    {% if object.user %}
+                                        {{ object.user.first_name.title }} {{ object.user.last_name.title }}
+                                    {% else %}
+                                        Deleted User
+                                    {% endif %}
+                                </span>
+                            </li>
+                            <li>
+                                <strong>Category: </strong>
+                                <a href="{% url 'categories:category' category_id=object.category.pk %}">
+                                    {{ object.category.name }}
+                                </a>
+                            </li>
+                            <li><strong>Created At: </strong><span>{{ object.created_at }}</span></li>
+                            <li><strong>Updated At: </strong><span>{{ object.updated_at }}</span></li>
+                        </ul>
+                        <strong>Actions: </strong>
+                        <a href="{% url 'exam_group:edit_exam_group' exam_group_id=object.pk %}"
+                           class="btn btn-success">Edit</a>
+                        <a href="{% url 'exam_group:delete_exam_group' exam_group_id=object.pk %}"
+                           class="btn btn-danger">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h3>Exams</h3>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Created By</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for exam in object.exam_set.all %}
+                            <tr>
+                                <td>{{ exam.pk }}</td>
+                                <td>{{ exam.name.title }}</td>
+                                <td>{{ exam.description }}</td>
+                                <td>
+                                    {% if object.user %}
+                                        {{ object.user.first_name.title }} {{ object.user.last_name.title }}
+                                    {% else %}
+                                        Deleted User
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a href="{% url 'exams:exam' exam_id=exam.pk %}" class="btn btn-primary">View</a>
+                                    <a href="{% url 'exams:edit_exam' exam_id=exam.pk %}"
+                                       class="btn btn-success">Edit</a>
+                                    <a href="{% url 'exams:delete_exam' exam_id=exam.pk %}"
+                                       class="btn btn-danger">Delete</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

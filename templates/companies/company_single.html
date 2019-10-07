@@ -1,0 +1,110 @@
+{% extends 'base/private.html' %}
+
+{% block title %}{{ object.name }}{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2>{{ object.name }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>Information</strong>
+                    </div>
+                    <div class="card-body">
+                        <ul>
+                            <li><strong>Description: </strong><span>{{ object.description }}</span></li>
+                            <li><strong>Phone: </strong><span>{{ object.phone }}</span></li>
+                            <li><strong>Address: </strong><span>{{ object.address }}</span></li>
+                            <li>
+                                <strong>Exams count: </strong>
+                                <span>{{ object.companyexamassociation_set.count }} </span>
+                                <a href="{% url 'companies:list_company_exams' company_id=object.pk %}">View all</a>
+                            </li>
+                            <li><strong>Created at: </strong><span>{{ object.created_at }}</span></li>
+                            <li><strong>Last updated at: </strong><span>{{ object.updated_at }}</span></li>
+                        </ul>
+                        <strong>Actions: </strong>
+                        <a href="{% url 'companies:edit_company' company_id=object.pk %}" class="btn btn-success">Edit</a>
+                        <a href="{% url 'companies:delete_company' company_id=object.pk %}" class="btn btn-danger">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2>
+                Offices
+                <a href="{% url 'companies:new_office' company_id=object.pk %}" class="btn btn-primary">Add Office</a>
+                </h2>
+            </div>
+        </div>
+
+        <div class="row">
+            {% for office in company.office_set.all %}
+                <div class="col-4">
+                    <article class="card">
+                        <img src="https://placehold.it/300x200" alt="">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ office.name }}</h5>
+                            <ul>
+                                <li><strong>Phone: </strong><span>{{ office.phone }}</span></li>
+                                <li><strong>Address: </strong><span>{{ office.address }}</span></li>
+                            </ul>
+                            <strong>Actions: </strong>
+                            <a class="btn btn-primary" href="{% url 'offices:office' office_id=office.pk %}">View</a>
+                            <a class="btn btn-success" href="{% url 'offices:edit_office' office_id=office.pk %}">Edit</a>
+                            <a class="btn btn-danger" href="{% url 'offices:delete_office' office_id=office.pk %}">Delete</a>
+                        </div>
+                    </article>
+               </div>
+            {% endfor %}
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header"><strong>Clients</strong></div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for client in clients %}
+                                    <tr>
+                                        <td>{{ client.pk }}</td>
+                                        <td>{{ client.first_name }}</td>
+                                        <td>{{ client.last_name }}</td>
+                                        <td>
+                                            <a href="{% url 'clients:client' client_id=client.pk %}"
+                                               class="btn btn-primary">View</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
