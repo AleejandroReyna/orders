@@ -9,7 +9,7 @@ from django.contrib import messages
 
 
 class CreateCompanyClientView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
-    template_name = 'clients/create_client_form.html'
+    template_name = 'clients/client_form.html'
     form_class = forms.CreateClientForm
     redirect_field_name = 'redirect_to'
     login_url = '/auth/login'
@@ -17,6 +17,8 @@ class CreateCompanyClientView(LoginRequiredMixin, PermissionRequiredMixin, Templ
 
     def get_context_data(self, **kwargs):
         context = super(CreateCompanyClientView, self).get_context_data()
+        context['action'] = 'Create'
+        context['description'] = 'Create a client for one company.'
         form = forms.CreateClientForm()
         form.fields['company'].queryset = self.request.user.company_set.all()
         context['form'] = form

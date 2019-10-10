@@ -17,6 +17,7 @@ class UserCreateView(mixins.LoginRequiredMixin, mixins.PermissionRequiredMixin, 
     def get_context_data(self, **kwargs):
         context = super(UserCreateView, self).get_context_data()
         context['action'] = 'Create'
+        context['description'] = 'Create a collaborator for your companies.'
         return context
 
     def form_valid(self, form):

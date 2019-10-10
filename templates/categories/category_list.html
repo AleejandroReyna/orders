@@ -3,52 +3,62 @@
 {% block title %}Categories{% endblock %}
 
 {% block content %}
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col">
-                <h2>Categories</h2>
+                <h4>Categories</h4>
+                {% if description %}
+                    <p>{{ description }}</p>
+                {% endif %}
             </div>
         </div>
     </div>
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Created By</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        {% for category in categories %}
-                            <tr>
-                                <td>{{ category.pk }}</td>
-                                <td>{{ category.name }}</td>
-                                <td>{{ category.description }}</td>
-                                <td>
-                                    {% if category.user %}
-                                        {{ category.user.first_name.title }} {{ category.user.last_name.title }}
-                                    {% else %}
-                                        Deleted user
-                                    {% endif %}
-                                </td>
-                                <td>
-                                    <a href="{% url 'categories:category' category_id=category.pk %}"
-                                       class="btn btn-primary">View</a>
-                                    <a href="{% url 'categories:edit_category' category_id=category.pk %}"
-                                       class="btn btn-success">Edit</a>
-                                    <a href="{% url 'categories:delete_category' category_id=category.pk %}"
-                                       class="btn btn-danger">Delete</a>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                <div class="pb-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h6 class="text-primary font-weight-bold m-0">DataList</h6>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Created By</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {% for category in categories %}
+                                        <tr>
+                                            <td>{{ category.name }}</td>
+                                            <td>{{ category.description }}</td>
+                                            <td>
+                                                {% if category.user %}
+                                                    {{ category.user.first_name.title }} {{ category.user.last_name.title }}
+                                                {% else %}
+                                                    Deleted user
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                <a href="{% url 'categories:category' category_id=category.pk %}"
+                                                   class="btn btn-primary">View</a>
+                                                <a href="{% url 'categories:edit_category' category_id=category.pk %}"
+                                                   class="btn btn-success">Edit</a>
+                                                <a href="{% url 'categories:delete_category' category_id=category.pk %}"
+                                                   class="btn btn-danger">Delete</a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

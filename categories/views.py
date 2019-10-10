@@ -8,7 +8,6 @@ from django.contrib import messages
 class CategoryCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = models.Category
     fields = ('name', 'description')
-    template_name_suffix = '_form'
     redirect_field_name = 'redirect_to'
     login_url = '/auth/login'
     permission_required = 'categories.add_category'
@@ -25,6 +24,7 @@ class CategoryCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView
     def get_context_data(self, **kwargs):
         context = super(CategoryCreateView, self).get_context_data()
         context['action'] = 'Create'
+        context['description'] = 'Create a category for multiple exams.'
         return context
 
 
@@ -42,6 +42,11 @@ class CategoryListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     login_url = '/auth/login'
     permission_required = 'categories.view_category'
     context_object_name = 'categories'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(CategoryListView, self).get_context_data()
+        context['description'] = 'View all categories.'
+        return context
 
 
 class CategoryEditView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
