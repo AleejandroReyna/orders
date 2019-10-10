@@ -8,7 +8,7 @@ from exams import models
 
 class ExamCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = models.Exam
-    fields = ('name', 'description', 'exam_group', 'type')
+    fields = ('name', 'description', 'category', 'type')
     login_url = '/auth/login'
     redirect_field_name = 'redirect_to'
     permission_required = 'exams.add_exam'
@@ -42,7 +42,7 @@ class ExamView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
 
 class ExamEditView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = models.Exam
-    fields = ('name', 'description', 'exam_group', 'type')
+    fields = ('name', 'description', 'category', 'type')
     login_url = '/auth/login'
     redirect_field_name = 'redirect_to'
     permission_required = 'exams.change_exam'
