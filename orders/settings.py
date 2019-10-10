@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'exams.apps.ExamsConfig',
     'clients.apps.ClientsConfig',
     'exam_response_types.apps.ExamResponseTypesConfig',
+    'analysis_parameters.apps.AnalysisParametersConfig',
     'active_link'
 ]
 
