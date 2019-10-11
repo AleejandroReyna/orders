@@ -1,0 +1,65 @@
+{% extends 'base/private.html' %}
+
+{% block title %}Parameters{% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <h4>Parameters</h4>
+                <p>The parameters for analysis</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        <h6 class="text-primary font-weight-bold m-0">List</h6>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Added By</th>
+                                    <th>Type</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for object in object_list %}
+                                    <tr>
+                                        <td><span>{{ object.name.title }}</span></td>
+                                        <td><span>{{ object.description.capitalize }}</span></td>
+                                        <td>
+                                            {% if object.user %}
+                                                {{ object.user.first_name.title }} {{ object.user.last_name.title }}
+                                            {% else %}
+                                                Deleted User
+                                            {% endif %}
+                                        </td>
+                                        <td><span>{{ object.type.title }}</span></td>
+                                        <td>
+                                            <a href="{% url 'parameters:parameter' parameter_id=object.pk %}"
+                                               class="btn btn-primary">View</a>
+                                            <a href="{% url 'parameters:edit_parameter' parameter_id=object.pk %}"
+                                               class="btn btn-success">Edit</a>
+                                            <a href="{% url 'parameters:delete_parameter' parameter_id=object.pk %}"
+                                               class="btn btn-danger">Delete</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

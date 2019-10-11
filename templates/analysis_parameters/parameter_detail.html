@@ -1,0 +1,51 @@
+{% extends 'base/private.html' %}
+
+{% block title %}{{ object.name.title }}{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <h4>{{ object.name.title }}</h4>
+                <p>{{ object.description.capitalize }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        <h6 class="m-0 text-primary font-weight-bold">Information</h6>
+                    </div>
+                    <div class="card-body">
+                        <ul>
+                            <li><strong>Type: </strong><span>{{ object.type.title }}</span></li>
+                            <li><strong>Category: </strong>
+                                <a href="{% url 'categories:category' category_id=object.category.pk %}">
+                                    {{ object.category.name.title }}</a>
+                            </li>
+                            <li>
+                                <strong>Created By: </strong>
+                                {% if object.user %}
+                                    <span>{{ object.user.first_name.title }} {{ object.user.last_name.title }}</span>
+                                {% else %}
+                                    <span>Deleted User</span>
+                                {% endif %}
+                            </li>
+                            <li><strong>Created At: </strong><span>{{ object.created_at }}</span></li>
+                            <li><strong>Updated At: </strong><span>{{ object.updated_at }}</span></li>
+                        </ul>
+
+                        <a href="{% url 'parameters:edit_parameter' parameter_id=object.pk %}"
+                           class="btn btn-success">Edit</a>
+                        <a href="{% url 'parameters:delete_parameter' parameter_id=object.pk %}"
+                           class="btn btn-danger">Delete</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

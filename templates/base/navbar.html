@@ -89,6 +89,23 @@
 </li>
 
 <li class="nav-item dropdown">
+    <a href="#" class="nav-link collapsed" data-toggle="collapse" data-target="#parametersCollapse"
+       aria-expanded="false" aria-controls="parametersCollapse">
+        <i class="far fa-list-alt"></i>
+        <span>Parameters</span>
+    </a>
+    <div class="collapse" id="parametersCollapse" aria-labelledby="parametersCollapse" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Parameters</h6>
+            <a class="collapse-item {% active_link 'parameters:parameters' strict=True %}"
+               href="{% url 'parameters:parameters' %}">All Parameters</a>
+            <a class="collapse-item {% active_link 'parameters:create_parameter' strict=True %}"
+               href="{% url 'parameters:create_parameter' %}">Add Parameter</a>
+        </div>
+    </div>
+</li>
+
+<li class="nav-item dropdown">
     <a href="#" class="nav-link collapsed" data-toggle="collapse" data-target="#examsCollapse"
        aria-expanded="true" aria-controls="examsCollapse">
         <i class="far fa-list-alt"></i>

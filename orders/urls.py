@@ -33,5 +33,6 @@ urlpatterns = [
     path('response_type_assignations/', include('exam_response_types.assignations_urls')),
     path('units/', include('exam_response_types.units_urls')),
     path('exam_dynamic_assignations/', include('exams.assignations_urls')),
-    path('company_exams/', include('companies.company_exams_urls'))
+    path('company_exams/', include('companies.company_exams_urls')),
+    path('parameters/', include('analysis_parameters.urls'))
 ]

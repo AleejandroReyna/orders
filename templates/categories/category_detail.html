@@ -48,13 +48,12 @@
                 <div class="py-5">
                     <div class="card">
                         <div class="card-header">
-                            <h6 class="m-0 font-weight-bold text-primary">Exams</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Parameters</h6>
                         </div>
                         <div class="card-body">
                             <table class="table table-bordered">
                                 <thead>
                                 <tr>
-                                    <th>#</th>
                                     <th>Name</th>
                                     <th>Description</th>
                                     <th>added By</th>
@@ -62,19 +61,16 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    {% for group in category.examgroup_set.all %}
+                                    {% for object in category.parameter_set.all %}
                                         <tr>
-                                            <td>{{ group.pk }}</td>
-                                            <td>{{ group.name }}</td>
-                                            <td>{{ group.description }}</td>
-                                            <td>{{ group.user.first_name.title }} {{ group.user.last_name.title }}</td>
+                                            <td>{{ object.name.capitalize }}</td>
+                                            <td>{{ object.description.capitalize }}</td>
+                                            <td>{{ object.user.first_name.title }} {{ object.user.last_name.title }}</td>
                                             <td>
-                                                <a href="{% url 'exam_group:exam_group' exam_group_id=group.pk %}"
+                                                <a href="{% url 'parameters:parameter' parameter_id=object.pk %}"
                                                    class="btn btn-primary">View</a>
-                                                <a href="{% url 'exam_group:edit_exam_group' exam_group_id=group.pk %}"
+                                                <a href="{% url 'parameters:edit_parameter' parameter_id=object.pk %}"
                                                    class="btn btn-success">Edit</a>
-                                                <a href="{% url 'exam_group:delete_exam_group' exam_group_id=group.pk %}"
-                                                   class="btn btn-danger">Delete</a>
                                             </td>
                                         </tr>
                                     {% endfor %}
