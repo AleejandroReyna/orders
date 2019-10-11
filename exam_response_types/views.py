@@ -14,15 +14,18 @@ class ResponseTypeCreateView(LoginRequiredMixin, PermissionRequiredMixin, Create
     permission_required = 'exam_response_types.add_responsetype'
 
     def get_success_url(self):
+        messages.success(self.request, 'The response type with name: "%s" has been added.' % self.object.name.title())
         return reverse_lazy('exam_response_types:response_type', kwargs={'response_type_id': self.object.pk})
 
     def form_valid(self, form):
         form.instance.user = self.request.user
+        form.instance.name = form.instance.name.lower()
         return super(ResponseTypeCreateView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super(ResponseTypeCreateView, self).get_context_data()
         context['action'] = 'Create'
+        context['description'] = 'Response type is a possible value for parameter.'
         return context
 
 
@@ -43,6 +46,10 @@ class ResponseTypeEditView(LoginRequiredMixin, PermissionRequiredMixin, UpdateVi
         context = super(ResponseTypeEditView, self).get_context_data()
         context['action'] = 'Edit'
         return context
+
+    def form_valid(self, form):
+        form.instance.name = form.instance.name.lower()
+        return super(ResponseTypeEditView, self).form_valid(form)
 
 
 class ResponseTypeDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):

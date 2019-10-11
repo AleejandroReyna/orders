@@ -3,76 +3,83 @@
 {% block title %}Response Type: {{ object.name.capitalize }}{% endblock %}
 
 {% block content %}
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col">
-                <h2>{{ object.name.capitalize }}</h2>
+                <h4>{{ object.name.title }}</h4>
+                <p>{{ object.description.capitalize }}</p>
             </div>
         </div>
     </div>
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col">
-                <div class="card">
-                    <div class="card-header"><strong>Information</strong></div>
-                    <div class="card-body">
-                        <ul>
-                            <li><strong>Description: </strong><span>{{ object.description }}</span></li>
-                            <li><strong>Added By: </strong>
-                                <span>
-                                    {% if object.user %}
-                                        {{ object.user.first_name.title }} {{ object.user.last_name.title }}
-                                    {% else %}
-                                        Deleted User
-                                    {% endif %}
-                                </span>
-                            </li>
-                            <li><strong>Created At: </strong><span>{{ object.created_at }}</span></li>
-                            <li><strong>Updated At: </strong><span>{{ object.updated_at }}</span></li>
-                        </ul>
-                        <strong>Actions: </strong>
-                        <a href="{% url 'exam_response_types:edit_response_type' response_type_id=object.pk %}"
-                           class="btn btn-success">Edit</a>
-                        <a href="{% url 'exam_response_types:delete_response_type' response_type_id=object.pk %}"
-                           class="btn btn-danger">Delete</a>
+                <div class="pb-5">
+                    <div class="card">
+                        <div class="card-header"><h6 class="m-0 font-weight-bold text-primary">Information</h6></div>
+                        <div class="card-body">
+                            <ul>
+                                <li><strong>Added By: </strong>
+                                    <span>
+                                        {% if object.user %}
+                                            {{ object.user.first_name.title }} {{ object.user.last_name.title }}
+                                        {% else %}
+                                            Deleted User
+                                        {% endif %}
+                                    </span>
+                                </li>
+                                <li><strong>Created At: </strong><span>{{ object.created_at }}</span></li>
+                                <li><strong>Updated At: </strong><span>{{ object.updated_at }}</span></li>
+                            </ul>
+                            <a href="{% url 'exam_response_types:edit_response_type' response_type_id=object.pk %}"
+                               class="btn btn-success">Edit</a>
+                            <a href="{% url 'exam_response_types:delete_response_type' response_type_id=object.pk %}"
+                               class="btn btn-danger">Delete</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col">
-                <h3>Assignations</h3>
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>Group</th>
-                        <th>Weighing</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        {% for assignation in object.responsetypeassignation_set.all %}
+                <div class="card">
+                    <div class="card-header">
+                        <h6 class="m-0 text-primary font-weight-bold">Assignations</h6>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
                             <tr>
-                                <td>
-                                    <a href="{% url 'exam_response_types_groups:response_type_group' response_type_group_id=assignation.response_type_group.pk %}">
-                                        {{ assignation.response_type_group.name.title }}
-                                    </a>
-                                </td>
-                                <td>{{ assignation.weighing }}</td>
-                                <td>
-                                    <a href="{% url 'exam_response_types_assignations:edit_response_type_assignation' response_type_assignation_id=assignation.pk %}"
-                                       class="btn btn-success">Edit</a>
-                                    <a href="{% url 'exam_response_types_assignations:delete_response_type_assignation' response_type_assignation_id=assignation.pk %}"
-                                       class="btn btn-danger">Delete</a>
-                                </td>
+                                <th>Group</th>
+                                <th>Weighing</th>
+                                <th></th>
                             </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                            </thead>
+                            <tbody>
+                                {% for assignation in object.responsetypeassignation_set.all %}
+                                    <tr>
+                                        <td>
+                                            <a href="{% url 'exam_response_types_groups:response_type_group' response_type_group_id=assignation.response_type_group.pk %}">
+                                                {{ assignation.response_type_group.name.title }}
+                                            </a>
+                                        </td>
+                                        <td>{{ assignation.weighing }}</td>
+                                        <td>
+                                            <a href="{% url 'exam_response_types_assignations:edit_response_type_assignation' response_type_assignation_id=assignation.pk %}"
+                                               class="btn btn-success">Edit</a>
+                                            <a href="{% url 'exam_response_types_assignations:delete_response_type_assignation' response_type_assignation_id=assignation.pk %}"
+                                               class="btn btn-danger">Delete</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

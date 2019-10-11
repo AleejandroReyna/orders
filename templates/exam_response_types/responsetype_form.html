@@ -4,10 +4,10 @@
 {% block title %}New Response Type{% endblock %}
 
 {% block content %}
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col">
-                <h2>{{ action }} Response Type</h2>
+                <h4>{{ action }} Response Type</h4>
                 {% if description %}
                     <p>{{ description }}</p>
                 {% endif %}
@@ -15,24 +15,28 @@
         </div>
     </div>
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col">
-                <form action="." method="post">
-                    {% csrf_token %}
-                    {% for field in form %}
-                        <div class="form-group">
-                            {{ field.errors }}
-                            {{ field.label_tag }}
-                            {% render_field field class='form-control' required='required' %}
-                            {% if field.help_text %}
-                            <p class="help">{{ field.help_text|safe }}</p>
-                            {% endif %}
-                        </div>
-                    {% endfor %}
-                    <a href="{{request.META.HTTP_REFERER}}" class="btn btn-outline-secondary">Cancel</a>
-                    <button type="submit" class="btn btn-primary">{{ action }} Response Type</button>
-                </form>
+                <div class="card">
+                    <div class="card-body">
+                        <form action="." method="post">
+                            {% csrf_token %}
+                            {% for field in form %}
+                                <div class="form-group">
+                                    {{ field.label_tag }}
+                                    {% render_field field class='form-control' required='required' %}
+                                    {{ field.errors }}
+                                    {% if field.help_text %}
+                                    <p class="help">{{ field.help_text|safe }}</p>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                            <a href="{{request.META.HTTP_REFERER}}" class="btn btn-outline-secondary">Cancel</a>
+                            <button type="submit" class="btn btn-primary">{{ action }} Response Type</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

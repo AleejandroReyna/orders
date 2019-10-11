@@ -3,54 +3,62 @@
 {% block title %}Response Types{% endblock %}
 
 {% block content %}
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col">
-                <h2>Response Types <a href="{% url 'exam_response_types:new_response_type' %}"
-                                      class="btn btn-primary">Add</a></h2>
+                <div class="pb-4 d-flex align-items-center justify-content-between">
+                    <h4>Response Types</h4>
+                    <a href="{% url 'exam_response_types:new_response_type' %}" class="btn btn-primary">
+                       Add Response Type</a>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Created By</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        {% for responsetype in responsetype_list %}
-                            <tr>
-                                <td>{{ responsetype.pk }}</td>
-                                <td>{{ responsetype.name }}</td>
-                                <td>{{ responsetype.description }}</td>
-                                <td>
-                                    {% if responsetype.user %}
-                                        {{ responsetype.user.first_name.capitalize }}
-                                        {{ responsetype.user.last_name.capitalize }}
-                                    {% else %}
-                                        Deleted User
-                                    {% endif %}
-                                </td>
-                                <td>
-                                    <a href="{% url 'exam_response_types:response_type' response_type_id=responsetype.pk %}"
-                                       class="btn btn-primary">View</a>
-                                    <a href="{% url 'exam_response_types:edit_response_type' response_type_id=responsetype.pk %}"
-                                       class="btn btn-success">Edit</a>
-                                    <a href="{% url 'exam_response_types:delete_response_type' response_type_id=responsetype.pk %}"
-                                       class="btn btn-danger">Delete</a>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                <div class="pb-4">
+                    <div class="card">
+                        <div class="card-header"><h6 class="text-primary m-0 font-weight-bold">List</h6></div>
+                        <div class="card-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Created By</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {% for responsetype in responsetype_list %}
+                                        <tr>
+                                            <td>{{ responsetype.name.capitalize }}</td>
+                                            <td>{{ responsetype.description }}</td>
+                                            <td>
+                                                {% if responsetype.user %}
+                                                    {{ responsetype.user.first_name.capitalize }}
+                                                    {{ responsetype.user.last_name.capitalize }}
+                                                {% else %}
+                                                    Deleted User
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                <a href="{% url 'exam_response_types:response_type' response_type_id=responsetype.pk %}"
+                                                   class="btn btn-primary">View</a>
+                                                <a href="{% url 'exam_response_types:edit_response_type' response_type_id=responsetype.pk %}"
+                                                   class="btn btn-success">Edit</a>
+                                                <a href="{% url 'exam_response_types:delete_response_type' response_type_id=responsetype.pk %}"
+                                                   class="btn btn-danger">Delete</a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
