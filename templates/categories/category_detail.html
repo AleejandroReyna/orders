@@ -71,6 +71,8 @@
                                                    class="btn btn-primary">View</a>
                                                 <a href="{% url 'parameters:edit_parameter' parameter_id=object.pk %}"
                                                    class="btn btn-success">Edit</a>
+                                                <a href="{% url 'parameters:delete_parameter' parameter_id=object.pk %}"
+                                                   class="btn btn-danger">Delete</a>
                                             </td>
                                         </tr>
                                     {% endfor %}

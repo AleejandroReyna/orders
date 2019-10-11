@@ -99,6 +99,7 @@ class ResponseTypeGroupCreateView(LoginRequiredMixin, PermissionRequiredMixin, C
     def get_context_data(self, **kwargs):
         context = super(ResponseTypeGroupCreateView, self).get_context_data()
         context['action'] = 'Create'
+        context['description']= 'Create response group for parameters.'
         return context
 
     def form_valid(self, form):
@@ -138,17 +139,37 @@ class ResponseTypeGroupEditView(LoginRequiredMixin, PermissionRequiredMixin, Upd
     def get_context_data(self, **kwargs):
         context = super(ResponseTypeGroupEditView, self).get_context_data()
         context['action'] = 'Edit'
+        context['description'] = "Edit the response type group if it's needed."
         return context
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        messages.success(self.request, 'The group with name: "%s" has been updated.' % form.instance.name,
-                         extra_tags='success')
         return super(ResponseTypeGroupEditView, self).form_valid(form)
 
     def get_success_url(self):
+        messages.success(self.request, 'The group with name: "%s" has been updated.' % self.object.name,
+                         extra_tags='success')
         return reverse_lazy('exam_response_types_groups:response_type_group',
                             kwargs={'response_type_group_id': self.object.pk})
+
+
+class ResponseTypeGroupDeleteView(PermissionRequiredMixin, DeleteView):
+    model = models.ResponseTypeGroup
+    permission_required = 'exam_response_types.delete_responsetypegroup'
+    login_url = reverse_lazy('custom_auth:login')
+    pk_url_kwarg = 'response_type_group_id'
+    success_url = reverse_lazy('exam_response_types_groups:response_type_groups')
+
+    def get_context_data(self, **kwargs):
+        context = super(ResponseTypeGroupDeleteView, self).get_context_data()
+        context['description'] = 'Are you sure to delete the response type group with name: "%s"?' % \
+                                 self.object.name.title()
+        return context
+
+    def get_success_url(self):
+        messages.success(self.request, 'The response type group with name: "%s" has been deleted.' %
+                         self.object.name.title())
+        return super(ResponseTypeGroupDeleteView, self).get_success_url()
 
 
 ''' ASSIGNATIONS '''
@@ -166,6 +187,8 @@ class ResponseTypeAssignationCreateView(LoginRequiredMixin, PermissionRequiredMi
         context['group'] = get_object_or_404(models.ResponseTypeGroup, id=self.kwargs['response_type_group_id'])
         context['form'].fields['response_type'].queryset = models.ResponseType.objects\
             .exclude(id__in=[item.pk for item in context['group'].response_types.all()])
+        context['description'] = "Add a response type and weighing to group."
+        context['action'] = 'Create'
         return context
 
     def form_valid(self, form):
@@ -197,6 +220,7 @@ class ResponseTypeAssignationEditView(LoginRequiredMixin, PermissionRequiredMixi
     def get_context_data(self, **kwargs):
         context = super(ResponseTypeAssignationEditView, self).get_context_data()
         context['action'] = 'Edit'
+        context['description'] = "Edit response type group if it's needed."
         return context
 
     def form_valid(self, form):

@@ -10,7 +10,7 @@ class ResponseType(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return "%s" % self.name
+        return "%s" % self.name.title()
 
 
 class ResponseTypeGroup(models.Model):
@@ -22,7 +22,11 @@ class ResponseTypeGroup(models.Model):
     response_types = models.ManyToManyField(ResponseType, through='ResponseTypeAssignation')
 
     def __str__(self):
-        return "%s" % self.name
+        return "%s" % self.name.title()
+
+    def save(self, *args, **kwargs):
+        self.name = self.name.lower()
+        return super(ResponseTypeGroup, self).save()
 
 
 WEIGHING_CHOICES = (('normal', 'Normal'), ('warning', 'Warning'), ('danger', 'Danger'))

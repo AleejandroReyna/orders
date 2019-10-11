@@ -3,50 +3,56 @@
 {% block title %}Response Type Groups{% endblock %}
 
 {% block content %}
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col">
-                <h2>Response Type Groups <a href="{% url 'exam_response_types_groups:new_response_type_group' %}"
-                                            class="btn btn-primary">Add</a></h2>
+                <div class="pb-4 d-flex align-items-center justify-content-between">
+                    <h4>Response Type Groups</h4>
+                    <a href="{% url 'exam_response_types_groups:new_response_type_group' %}"
+                       class="btn btn-primary">Add Response Type Group</a>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Created By</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        {% for object in object_list %}
+                <div class="card">
+                    <div class="card-header"><h6 class="m-0 text-primary font-weight-bold">List</h6></div>
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <thead>
                             <tr>
-                                <td>{{ object.pk }}</td>
-                                <td>{{ object.name }}</td>
-                                <td>{{ object.description }}</td>
-                                <td>
-                                    {% if object.user %}
-                                        {{ object.user.first_name.capitalize }}
-                                        {{ object.user.last_name.capitalize }}
-                                    {% else %}
-                                        Deleted User
-                                    {% endif %}
-                                </td>
-                                <td>
-                                    <a href="{% url 'exam_response_types_groups:response_type_group' response_type_group_id=object.pk %}"
-                                       class="btn btn-primary">View</a>
-                                </td>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Created By</th>
+                                <th></th>
                             </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                            </thead>
+                            <tbody>
+                                {% for object in object_list %}
+                                    <tr>
+                                        <td>{{ object.name }}</td>
+                                        <td>{{ object.description }}</td>
+                                        <td>
+                                            {% if object.user %}
+                                                {{ object.user.first_name.capitalize }}
+                                                {{ object.user.last_name.capitalize }}
+                                            {% else %}
+                                                Deleted User
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <a href="{% url 'exam_response_types_groups:response_type_group' response_type_group_id=object.pk %}"
+                                               class="btn btn-primary">View</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

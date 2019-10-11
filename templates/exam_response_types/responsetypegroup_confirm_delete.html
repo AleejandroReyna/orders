@@ -1,27 +1,24 @@
 {% extends 'base/private.html' %}
-{% load widget_tweaks %}
 
-{% block title %}{{ action }} Response Type Assignation{% endblock %}
+{% block title %}Delete Response Type Group{% endblock %}
 
 {% block content %}
     <div class="container-fluid">
         <div class="row">
             <div class="col">
-                <h4>{{ action }} Response Type Assignation</h4>
+                <h4>Delete Response Type Group</h4>
                 {% if description %}
                     <p>{{ description }}</p>
                 {% endif %}
             </div>
         </div>
-    </div>
 
-    <div class="container-fluid">
         <div class="row">
             <div class="col">
                 <form action="." method="post">
                     {% csrf_token %}
                     <a href="{{request.META.HTTP_REFERER}}" class="btn btn-outline-secondary">Cancel</a>
-                    <button type="submit" class="btn btn-primary">{{ action }} Response Type Assignation</button>
+                    <button type="submit" class="btn btn-primary">Delete Response Type Group</button>
                 </form>
             </div>
         </div>
