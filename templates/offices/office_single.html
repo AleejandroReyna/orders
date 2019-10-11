@@ -3,32 +3,36 @@
 {% block title %}Office: {{ object.name }}{% endblock %}
 
 {% block content %}
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col">
-                <h2>{{ object.name }}</h2>
+                <h4>{{ object.name.title }}</h4>
+                {% if description %}
+                    <p>{{ description }}</p>
+                {% endif %}
             </div>
         </div>
     </div>
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col">
-                <article class="card">
-                    <div class="card-header">Information</div>
-                    <div class="card-body">
-                        <ul>
-                            <li><strong>Company: </strong>
-                                <a href="{% url 'companies:company' company_id=object.company.pk %}">{{ object.company.name }}</a>
-                            </li>
-                            <li><strong>Phone: </strong><span>{{ object.phone }}</span></li>
-                            <li><strong>Address: </strong><span>{{ object.address }}</span></li>
-                            <strong>Actions: </strong>
+                <div class="pb-5">
+                    <article class="card">
+                        <div class="card-header"><h6 class="m-0 font-weight-bold text-primary">Information</h6></div>
+                        <div class="card-body">
+                            <ul>
+                                <li><strong>Company: </strong>
+                                    <a href="{% url 'companies:company' company_id=object.company.pk %}">{{ object.company.name }}</a>
+                                </li>
+                                <li><strong>Phone: </strong><span>{{ object.phone }}</span></li>
+                                <li><strong>Address: </strong><span>{{ object.address }}</span></li>
+                            </ul>
                             <a class="btn btn-success" href="{% url 'offices:edit_office' office_id=object.pk %}">Edit</a>
                             <a class="btn btn-danger" href="{% url 'offices:delete_office' office_id=object.pk %}">Delete</a>
-                        </ul>
-                    </div>
-                </article>
+                        </div>
+                    </article>
+                </div>
             </div>
         </div>
     </div>

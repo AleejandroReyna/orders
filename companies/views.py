@@ -38,7 +38,6 @@ class CompanyListView(ListView):
 
 
 class CompanyView(DetailView):
-    template_name_suffix = '_single'
     model = models.Company
     pk_url_kwarg = 'company_id'
 
