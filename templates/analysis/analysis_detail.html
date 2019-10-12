@@ -1,0 +1,23 @@
+{% extends 'generic/generic_base_detail.html' %}
+
+{% block detail_content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header"><h6 class="m-0 font-weight-bold text-primary">Information</h6></div>
+                    <div class="card-body">
+                        <ul>
+                            <li><strong>Created At: </strong><span>{{ object.created_at }}</span></li>
+                            <li><strong>Updated At: </strong><span>{{ object.updated_at }}</span></li>
+                        </ul>
+                        <a href="{% url 'analysis:edit_analysis' analysis_id=object.pk %}"
+                           class="btn btn-success">Edit</a>
+                        <a href="{% url 'analysis:delete_analysis' analysis_id=object.pk %}"
+                           class="btn btn-danger">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

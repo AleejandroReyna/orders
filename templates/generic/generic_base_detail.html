@@ -1,0 +1,26 @@
+{% extends 'base/private.html' %}
+
+{% block title %}{{ object.name }}{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <h4>{{ object.name.title }}</h4>
+                <p>{{ object.description }}</p>
+            </div>
+        </div>
+    </div>
+
+    {% block detail_content %}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">
+                    <div class="d-flex justify-content-center">
+                        <span>Change detail with block detail_content...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+{% endblock %}

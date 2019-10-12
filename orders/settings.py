@@ -54,7 +54,8 @@ INSTALLED_APPS = [
     'exam_response_types.apps.ExamResponseTypesConfig',
     'analysis_parameters.apps.AnalysisParametersConfig',
     'analysis.apps.AnalysisConfig',
-    'active_link'
+    'active_link',
+    'orders.lib'
 ]
 
 MIDDLEWARE = [
@@ -82,7 +83,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-            ],
+            ]
         },
     },
 ]

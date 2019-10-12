@@ -1,0 +1,31 @@
+{% extends 'base/private.html' %}
+{% load form_model_class_name %}
+
+{% block title %}{{ action }} {{ form | form_model_class_name }}{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <h4>{{ action }}  {{ form | form_model_class_name }}</h4>
+                {% if description %}
+                    <p>{{ description }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <div class="pb-5">
+                    <div class="card">
+                        <div class="card-body">
+                            {% include 'generic/generic_form.html' %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
