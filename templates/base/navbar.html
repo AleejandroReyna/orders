@@ -89,6 +89,23 @@
 </li>
 
 <li class="nav-item dropdown">
+    <a href="#" class="nav-link collapsed" data-toggle="collapse" data-target="#analysisCollapse"
+       aria-expanded="true" aria-controls="analysisCollapse">
+        <i class="far fa-list-alt"></i>
+        <span>Analysis</span>
+    </a>
+    <div class="collapse" id="analysisCollapse" aria-labelledby="analysisCollapse" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Analysis</h6>
+            <a class="collapse-item {% active_link 'analysis:analysis_list' strict=True %}"
+               href="{% url 'analysis:analysis_list' %}">My Analysis</a>
+            <a class="collapse-item {% active_link 'analysis:create_analysis' strict=True %}"
+               href="{% url 'analysis:create_analysis' %}">Add Analysis</a>
+        </div>
+    </div>
+</li>
+
+<li class="nav-item dropdown">
     <a href="#" class="nav-link collapsed" data-toggle="collapse" data-target="#parametersCollapse"
        aria-expanded="false" aria-controls="parametersCollapse">
         <i class="far fa-list-alt"></i>
