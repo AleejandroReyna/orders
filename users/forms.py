@@ -10,3 +10,10 @@ class AuthenticationForm(BaseAuthenticationForm):
     class Meta(BaseAuthenticationForm):
         model = User
         fields = ('email', 'password')
+
+
+class UserCreationForm(BaseUserCreationForm):
+
+    class Meta(BaseUserCreationForm):
+        model = User
+        fields = ('first_name', 'last_name', 'email')
