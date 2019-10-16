@@ -1,8 +1,7 @@
-from django.shortcuts import render
-from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.models import User
 from companies import models as company_models
+from django.views.generic import TemplateView
+from users.models import User, UserToUserRole
 
 
 class DashboardView(LoginRequiredMixin, TemplateView):
@@ -12,6 +11,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(DashboardView, self).get_context_data()
+        context['collaborators'] = self.request.user.get_collaborators()
         context['companies'] = self.request.user.company_set.all()
         context['offices'] = company_models.Office.objects.filter(company__in=context['companies'])
         return context

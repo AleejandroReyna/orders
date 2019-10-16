@@ -41,7 +41,8 @@
          data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Collaborators:</h6>
-            <a href="#" class="collapse-item">All Collaborators</a>
+            <a href="{% url 'collaborators:user_collaborators' %}" class="collapse-item">My Collaborators</a>
+            <a href="{% url 'collaborators:create_collaborator' %}" class="collapse-item">Add Collaborator</a>
         </div>
     </div>
 </li>

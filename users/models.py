@@ -25,6 +25,9 @@ class User(AbstractUser, PermissionsMixin):
         self.last_name = self.last_name.lower()
         return super(User, self).save(*args, **kwargs)
 
+    def get_collaborators(self):
+        return User.objects.filter(user__owner_id=self.pk, user__role__name='collaborator')
+
 
 class UserRole(models.Model):
     name = models.CharField(max_length=20, unique=True)

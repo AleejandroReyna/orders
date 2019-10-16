@@ -17,3 +17,10 @@ class UserCreationForm(BaseUserCreationForm):
     class Meta(BaseUserCreationForm):
         model = User
         fields = ('first_name', 'last_name', 'email')
+
+
+class UserChangeForm(BaseUserChangeForm):
+
+    class Meta(BaseUserChangeForm):
+        model = User
+        fields = ('first_name', 'last_name', 'email')

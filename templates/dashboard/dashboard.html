@@ -19,18 +19,18 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
                                         <th>First Name</th>
                                         <th>Last Name</th>
+                                        <th>Email</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 {% for collaborator in collaborators %}
                                     <tr>
-                                        <td>{{ collaborator.collaborator.pk }}</td>
-                                        <td>{{ collaborator.collaborator.first_name }}</td>
-                                        <td>{{ collaborator.collaborator.last_name }}</td>
+                                        <td>{{ collaborator.first_name.title }}</td>
+                                        <td>{{ collaborator.last_name.title }}</td>
+                                        <td>{{ collaborator.email }}</td>
                                         <td><a href="#" class="btn btn-primary">View</a></td>
                                     </tr>
                                 {% endfor %}

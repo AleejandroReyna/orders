@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import redirect, get_object_or_404
-from users.models import UserRole, UserToUserRole
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
+from users.models import UserRole, UserToUserRole, User
 from users.forms import UserCreationForm
 from django.contrib import messages
 
@@ -27,3 +27,11 @@ class CollaboratorCreateView(PermissionRequiredMixin, TemplateView):
             return redirect('dashboard:dashboard')
         return super(CollaboratorCreateView, self).get(self.request)
 
+
+class UserCollaboratorsListView(PermissionRequiredMixin, ListView):
+    model = User
+    permission_required = 'users.add_user'
+    template_name = 'collaborators/collaborator_list.html'
+
+    def get_queryset(self):
+        return self.request.user.get_collaborators()

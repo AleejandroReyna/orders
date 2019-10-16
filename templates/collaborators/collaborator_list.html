@@ -1,0 +1,52 @@
+{% extends 'base/private.html' %}
+
+{% block title %}Add Collaborator{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <h4>My Collaborators</h4>
+                <p>A list for your collaborators.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header"><h6 class="text-primary font-weight-bold m-0">List</h6></div>
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Email</th>
+                                <th>Date Joined</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for object in object_list %}
+                                    <tr>
+                                        <td>{{ object.first_name.title }}</td>
+                                        <td>{{ object.last_name.title }}</td>
+                                        <td>{{ object.email }}</td>
+                                        <td>{{ object.date_joined }}</td>
+                                        <td>
+                                            <a href="#" class="btn btn-primary">View</a>
+                                            <a href="#" class="btn btn-success">Edit Permissions</a>
+                                            <a href="#" class="btn btn-danger">Delete Permissions</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
