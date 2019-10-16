@@ -1,5 +1,5 @@
 from django.urls import path
-from exam_response_types.views import ResponseTypeCreateView, ResponseTypeView, ResponseTypeListView, \
+from parameters_response_types.views import ResponseTypeCreateView, ResponseTypeView, ResponseTypeListView, \
     ResponseTypeEditView, ResponseTypeDeleteView
 
 app_name = 'exam_response_types'

@@ -48,14 +48,14 @@ INSTALLED_APPS = [
     'offices.apps.OfficesConfig',
     'collaborators.apps.CollaboratorsConfig',
     'categories.apps.CategoriesConfig',
-    'exam_group.apps.ExamGroupConfig',
     'exams.apps.ExamsConfig',
     'clients.apps.ClientsConfig',
-    'exam_response_types.apps.ExamResponseTypesConfig',
+    'parameters_response_types.apps.ParametersResponseTypesConfig',
     'analysis_parameters.apps.AnalysisParametersConfig',
     'analysis.apps.AnalysisConfig',
     'active_link',
-    'orders.lib'
+    'orders.lib',
+    'users.apps.UsersConfig'
 ]
 
 MIDDLEWARE = [
@@ -159,3 +159,5 @@ MESSAGE_TAGS = {
     30: 'alert-warning',
     40: 'alert-danger'
 }
+
+AUTH_USER_MODEL = 'users.User'

@@ -1,5 +1,5 @@
 from django.urls import path
-from exam_response_types.views import UnitCreateView, UnitView, UnitListView, UnitEditView, UnitDeleteView
+from parameters_response_types.views import UnitCreateView, UnitView, UnitListView, UnitEditView, UnitDeleteView
 
 app_name = 'units'
 

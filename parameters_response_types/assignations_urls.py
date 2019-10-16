@@ -1,5 +1,5 @@
 from django.urls import path
-from exam_response_types.views import ResponseTypeAssignationEditView, ResponseTypeAssignationDeleteView
+from parameters_response_types.views import ResponseTypeAssignationEditView, ResponseTypeAssignationDeleteView
 
 app_name = 'exam_response_types_assignations'
 

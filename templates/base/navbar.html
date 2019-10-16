@@ -42,8 +42,6 @@
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Collaborators:</h6>
             <a href="#" class="collapse-item">All Collaborators</a>
-            <a class="collapse-item {% active_link 'collaborators:new_collaborator' strict=True %}"
-               href="{% url 'collaborators:new_collaborator' %}">Add Collaborator</a>
         </div>
     </div>
 </li>
@@ -58,8 +56,6 @@
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Clients:</h6>
             <a href="#" class="collapse-item">Clients</a>
-            <a class="collapse-item {% active_link 'clients:create_client' strict=True %}"
-               href="{% url 'clients:create_client' %}">Add client</a>
         </div>
     </div>
 </li>
@@ -79,11 +75,6 @@
                href="{% url 'categories:categories' %}">All categories</a>
             <a class="collapse-item {% active_link 'categories:new_category' strict=True %}"
                href="{% url 'categories:new_category' %}">Add Category</a>
-            <h6 class="collapse-header">Exam Groups</h6>
-            <a class="collapse-item {% active_link 'exam_group:list_exam_group' strict=True %}"
-               href="{% url 'exam_group:list_exam_group' %}">Exam Groups</a>
-            <a class="collapse-item {% active_link 'exam_group:new_exam_group' strict=True %}"
-               href="{% url 'exam_group:new_exam_group' %}">Add Exam Group</a>
         </div>
     </div>
 </li>
@@ -118,24 +109,6 @@
                href="{% url 'parameters:parameters' %}">All Parameters</a>
             <a class="collapse-item {% active_link 'parameters:create_parameter' strict=True %}"
                href="{% url 'parameters:create_parameter' %}">Add Parameter</a>
-        </div>
-    </div>
-</li>
-
-<li class="nav-item dropdown">
-    <a href="#" class="nav-link collapsed" data-toggle="collapse" data-target="#examsCollapse"
-       aria-expanded="true" aria-controls="examsCollapse">
-        <i class="far fa-list-alt"></i>
-        <span>Exams</span>
-    </a>
-    <div class="collapse" id="examsCollapse"  aria-labelledby="examsCollapse" data-parent="#accordionSidebar"
-         aria-expanded="true">
-        <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Categories</h6>
-            <a class="collapse-item {% active_link 'exams:list_exams' strict=True %}"
-               href="{% url 'exams:list_exams' %}">Exams</a>
-            <a class="collapse-item {% active_link 'exams:new_exam' strict=True %}"
-               href="{% url 'exams:new_exam' %}">Add Exam</a>
         </div>
     </div>
 </li>

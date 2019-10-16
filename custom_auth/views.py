@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.contrib.auth.forms import AuthenticationForm
+from users.forms import AuthenticationForm
 from django.views.generic import TemplateView, View
 from django.contrib.auth import login, logout, update_session_auth_hash
 from django.shortcuts import redirect
@@ -12,6 +12,7 @@ class LoginView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(LoginView, self).get_context_data()
         context['form'] = AuthenticationForm()
+        print(context['form'])
         return context
 
     def post(self, request, *args, **kwargs):

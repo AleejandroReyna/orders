@@ -1,5 +1,5 @@
 from django.urls import path
-from exam_response_types.views import ResponseTypeGroupCreateView, ResponseTypeGroupView,\
+from parameters_response_types.views import ResponseTypeGroupCreateView, ResponseTypeGroupView,\
     ResponseTypeAssignationCreateView, ResponseTypeGroupListView, ResponseTypeGroupEditView, \
     ResponseTypeGroupDeleteView
 

@@ -1,7 +1,7 @@
 from django.db import models
 from categories.models import Category
-from django.contrib.auth.models import User
-from exam_response_types.models import ResponseTypeGroup, Unit
+from users.models import User
+from parameters_response_types.models import ResponseTypeGroup, Unit
 
 TYPE_CHOICES = (('static', 'static'), ('dynamic', 'dynamic'))
 

@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.contrib import messages
 from exams import models
 
-
+'''
 class ExamCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = models.Exam
     fields = ('name', 'description', 'category', 'type')
@@ -198,3 +198,4 @@ class ExamDynamicAssignationDeleteView(LoginRequiredMixin, PermissionRequiredMix
         messages.success(self.request, 'The assignation for exam: "%s" has been deleted.' %
                          self.object.exam.name.title())
         return reverse_lazy('exams:exam', kwargs={'exam_id': self.object.exam.pk})
+'''

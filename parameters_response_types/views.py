@@ -1,7 +1,7 @@
 from django.views.generic import DetailView, ListView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import get_object_or_404
-from exam_response_types import models
+from parameters_response_types import models
 from django.urls import reverse_lazy
 from django.contrib import messages
 

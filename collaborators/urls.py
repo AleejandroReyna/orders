@@ -3,6 +3,4 @@ from collaborators import views
 
 app_name = 'collaborators'
 
-urlpatterns = [
-    path('new/', views.UserCreateView.as_view(), name='new_collaborator')
-]
+urlpatterns = []
