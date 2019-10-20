@@ -26,7 +26,11 @@ class User(AbstractUser, PermissionsMixin):
         return super(User, self).save(*args, **kwargs)
 
     def get_collaborators(self):
-        return User.objects.filter(user__owner_id=self.pk, user__role__name='collaborator')
+        return User.objects.filter(user__owner_id=self.pk, user__role__name='collaborator')\
+            .order_by('-user__created_at')
+
+    def get_clients(self):
+        return User.objects.filter(user__owner_id=self.pk, user__role__name='client')
 
 
 class UserRole(models.Model):
@@ -42,3 +46,4 @@ class UserToUserRole(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='owner')
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
     role = models.ForeignKey(UserRole, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)

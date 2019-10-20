@@ -4,7 +4,7 @@ from django.db import migrations
 
 
 def create_default_roles(apps, schema_editor):
-    roles = [("collaborator", "Collaborator for your companies"), ("Client", "Client for your companies")]
+    roles = [("collaborator", "Collaborator for your companies"), ("client", "Client for your companies")]
     user_role = apps.get_model('users', 'UserRole')
 
     for role in roles:

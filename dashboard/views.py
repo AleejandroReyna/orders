@@ -11,7 +11,8 @@ class DashboardView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(DashboardView, self).get_context_data()
-        context['collaborators'] = self.request.user.get_collaborators()
+        context['collaborators'] = self.request.user.get_collaborators()[:5]
+        context['clients'] = self.request.user.get_clients()[:5]
         context['companies'] = self.request.user.company_set.all()
         context['offices'] = company_models.Office.objects.filter(company__in=context['companies'])
         return context
