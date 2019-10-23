@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser, PermissionsMixin
 from .managers import CustomUserManager
+from companies import models as company_models
 from django.utils import timezone
 from django.db import models
 
@@ -31,6 +32,9 @@ class User(AbstractUser, PermissionsMixin):
 
     def get_clients(self):
         return User.objects.filter(user__owner_id=self.pk, user__role__name='client')
+
+    def get_owners(self):
+        return User.objects.filter(owner__user_id=self.pk, owner__role__name='collaborator')
 
 
 class UserRole(models.Model):

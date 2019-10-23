@@ -1,0 +1,45 @@
+{% extends 'base/private.html' %}
+
+{% block title %}My Owners{% endblock %}
+
+{% block content %}
+    {% include 'generic/generic_heading_template.html' with title='My Owners' description='Show all owners.' %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header"><h6 class="m-0 text-primary font-weight-bold">List</h6></div>
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Email</th>
+                                    <th>Companies</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for object in object_list %}
+                                    <tr>
+                                        <td>{{ object.first_name.title }}</td>
+                                        <td>{{ object.last_name.title }}</td>
+                                        <td>{{ object.email }}</td>
+                                        <td>
+                                            {% for company in object.company_set.all %}
+                                                <li>{{ company.name.title }}</li>
+                                            {% endfor %}
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
