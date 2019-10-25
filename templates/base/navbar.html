@@ -31,21 +31,46 @@
     </div>
 </li>
 
-<li class="nav-item dropdown">
-    <a href="#" class="nav-link collapsed" data-toggle="collapse" data-target="#collaboratorsCollapse"
-       aria-expanded="true" aria-controls="collaboratorsCollapse">
-        <i class="fas fa-user fa-fw"></i>
-        <span>Collaborators</span>
-    </a>
-    <div id="collaboratorsCollapse" class="collapse" aria-labelledby="collaboratorsCollapse"
-         data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Collaborators:</h6>
-            <a href="{% url 'collaborators:user_collaborators' %}" class="collapse-item">My Collaborators</a>
-            <a href="{% url 'collaborators:create_collaborator' %}" class="collapse-item">Add Collaborator</a>
+{% if perms.users.view_owners %}
+
+    <li class="nav-item dropdown">
+        <a href="#" class="nav-link collapsed" data-toggle="collapse" data-target="#ownersCollapse"
+           aria-expanded="true" aria-controls="ownersCollapse">
+            <i class="fas fa-user fa-fw"></i>
+            <span>Owners</span>
+        </a>
+        <div id="ownersCollapse" class="collapse" aria-labelledby="ownersCollapse" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Owners</h6>
+                {% if perms.users.add_user %}
+                    <a href="{% url 'owners:create_owner' %}" class="collapse-item">Create Owner</a>
+                {% endif %}
+                <a href="{% url 'owners:user_owners' %}" class="collapse-item">My Owners</a>
+            </div>
         </div>
-    </div>
-</li>
+    </li>
+
+{% endif %}
+
+{% if perms.users.view_collaborators %}
+
+    <li class="nav-item dropdown">
+        <a href="#" class="nav-link collapsed" data-toggle="collapse" data-target="#collaboratorsCollapse"
+           aria-expanded="true" aria-controls="collaboratorsCollapse">
+            <i class="fas fa-user fa-fw"></i>
+            <span>Collaborators</span>
+        </a>
+        <div id="collaboratorsCollapse" class="collapse" aria-labelledby="collaboratorsCollapse"
+             data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Collaborators:</h6>
+                <a href="{% url 'collaborators:user_collaborators' %}" class="collapse-item">My Collaborators</a>
+                <a href="{% url 'collaborators:create_collaborator' %}" class="collapse-item">Add Collaborator</a>
+            </div>
+        </div>
+    </li>
+
+{% endif %}
 
 <li class="nav-item dropdown">
     <a href="#" class="nav-link collapsed" data-toggle="collapse" data-target="#clientsCollapse" aria-expanded="true"

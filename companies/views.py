@@ -42,9 +42,9 @@ class CompanyView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(CompanyView, self).get_context_data()
-        company = models.Company.objects.get(pk=context['object'].pk)
-        role = models.CompanyRole.objects.get(name='client')
-        context['clients'] = company.users.filter(companyuserrole__company_role=role)
+        #company = models.Company.objects.get(pk=context['object'].pk)
+        #role = models.CompanyRole.objects.get(name='client')
+        #context['clients'] = company.users.filter(companyuserrole__company_role=role)
         return context
 
 

@@ -36,6 +36,19 @@ class User(AbstractUser, PermissionsMixin):
     def get_owners(self):
         return User.objects.filter(owner__user_id=self.pk, owner__role__name='collaborator')
 
+    def get_companies(self):
+        return company_models.Company.objects.filter(companyuserrole__user=self,
+                                                     companyuserrole__company_role__name='administrator')
+
+    class Meta:
+        permissions = [
+            ("create_collaborators", "Create collaborator for company"),
+            ("view_collaborators", "View collaborators for company"),
+            ("create_clients", "Create client for company"),
+            ("view_clients", "View clients for company"),
+            ("view_owners", "View owners for collaborators")
+        ]
+
 
 class UserRole(models.Model):
     name = models.CharField(max_length=20, unique=True)
