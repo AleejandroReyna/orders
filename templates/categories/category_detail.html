@@ -17,6 +17,7 @@
                     <div class="card-header"><h6 class="m-0 text-primary font-weight-bold">Information</h6></div>
                     <div class="card-body">
                         <ul>
+                            {% if request.user.is_superuser %}
                             <li>
                                 <strong>Added by: </strong>
                                 <span>
@@ -27,15 +28,20 @@
                                     {% endif %}
                                 </span>
                             </li>
+                            {% endif %}
                             <li><strong>Description: </strong><span>{{ object.description }}</span></li>
                             <li><strong>Created At: </strong><span>{{ object.created_at }}</span></li>
                             <li><strong>Last Updated At: </strong><span>{{ object.updated_at }}</span></li>
                         </ul>
 
-                        <a href="{% url 'categories:edit_category' category_id=object.pk %}"
-                           class="btn btn-success">Edit</a>
-                        <a href="{% url 'categories:delete_category' category_id=object.pk %}"
-                           class="btn btn-danger">Delete</a>
+                        {% if perms.categories.change_category %}
+                            <a href="{% url 'categories:edit_category' category_id=category.pk %}"
+                               class="btn btn-success">Edit</a>
+                        {% endif %}
+                        {% if perms.categories.delete_category %}
+                            <a href="{% url 'categories:delete_category' category_id=category.pk %}"
+                               class="btn btn-danger">Delete</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>

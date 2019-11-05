@@ -103,6 +103,8 @@
 
 <span class="sidebar-heading">Utilities</span>
 
+{% if perms.categories.view_category %}
+
 <li class="nav-item dropdown">
     <a href="#" class="nav-link collapsed" data-toggle="collapse" data-target="#categoriesCollapse"
        aria-expanded="true" aria-controls="categoriesCollapse">
@@ -114,11 +116,15 @@
             <h6 class="collapse-header">Categories</h6>
             <a class="collapse-item {% active_link 'categories:categories' strict=True %}"
                href="{% url 'categories:categories' %}">All categories</a>
-            <a class="collapse-item {% active_link 'categories:new_category' strict=True %}"
-               href="{% url 'categories:new_category' %}">Add Category</a>
+            {% if perms.categories.add_category %}
+                <a class="collapse-item {% active_link 'categories:new_category' strict=True %}"
+                   href="{% url 'categories:new_category' %}">Add Category</a>
+            {% endif %}
         </div>
     </div>
 </li>
+
+{% endif %}
 
 <li class="nav-item dropdown">
     <a href="#" class="nav-link collapsed" data-toggle="collapse" data-target="#analysisCollapse"

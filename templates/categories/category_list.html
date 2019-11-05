@@ -8,7 +8,9 @@
             <div class="col">
                 <div class="d-flex align-items-center justify-content-between">
                     <h4>Categories</h4>
-                    <a href="{% url 'categories:new_category' %}" class="btn btn-primary">Create Category</a>
+                    {% if perms.categories.add_category %}
+                        <a href="{% url 'categories:new_category' %}" class="btn btn-primary">Create Category</a>
+                    {% endif %}
                 </div>
                 {% if description %}
                     <p>{{ description }}</p>
@@ -31,7 +33,9 @@
                                 <tr>
                                     <th>Name</th>
                                     <th>Description</th>
-                                    <th>Created By</th>
+                                    {% if request.user.is_superuser %}
+                                        <th>Created By</th>
+                                    {% endif %}
                                     <th>Actions</th>
                                 </tr>
                                 </thead>
@@ -40,20 +44,26 @@
                                         <tr>
                                             <td>{{ category.name }}</td>
                                             <td>{{ category.description }}</td>
-                                            <td>
-                                                {% if category.user %}
-                                                    {{ category.user.first_name.title }} {{ category.user.last_name.title }}
-                                                {% else %}
-                                                    Deleted user
-                                                {% endif %}
-                                            </td>
+                                            {% if request.user.is_superuser %}
+                                                <td>
+                                                    {% if category.user %}
+                                                        {{ category.user.first_name.title }} {{ category.user.last_name.title }}
+                                                    {% else %}
+                                                        Deleted user
+                                                    {% endif %}
+                                                </td>
+                                            {% endif %}
                                             <td>
                                                 <a href="{% url 'categories:category' category_id=category.pk %}"
                                                    class="btn btn-primary">View</a>
-                                                <a href="{% url 'categories:edit_category' category_id=category.pk %}"
-                                                   class="btn btn-success">Edit</a>
-                                                <a href="{% url 'categories:delete_category' category_id=category.pk %}"
-                                                   class="btn btn-danger">Delete</a>
+                                                {% if perms.categories.change_category %}
+                                                    <a href="{% url 'categories:edit_category' category_id=category.pk %}"
+                                                       class="btn btn-success">Edit</a>
+                                                {% endif %}
+                                                {% if perms.categories.delete_category %}
+                                                    <a href="{% url 'categories:delete_category' category_id=category.pk %}"
+                                                       class="btn btn-danger">Delete</a>
+                                                {% endif %}
                                             </td>
                                         </tr>
                                     {% endfor %}
