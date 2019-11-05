@@ -16,17 +16,13 @@ class Company(models.Model):
     users = models.ManyToManyField(User, through='CompanyUserRole')
 
     def __str__(self):
-        return "%s" % self.name
+        return "%s" % self.name.title()
 
     def save(self, *args, **kwargs):
-        current_request = CrequestMiddleware.get_request()
         super(Company, self).save(*args, **kwargs)
         offices = self.office_set.count()
         if offices == 0:
-            current_user = current_request.user
-            role = CompanyRole.objects.get(name='administrator')
             central = self.office_set.create(name='central')
-            self.companyuserrole_set.create(user=current_user, company_role=role)
 
 
 class Office(models.Model):

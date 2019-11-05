@@ -1,0 +1,30 @@
+<header class="public-header  mb-4">
+    <nav class="navbar navbar-expand navbar-dark bg-primary">
+        <div class="text-white mr-2"><i class="fab fa-wpexplorer fa-2x"></i></div>
+        <a href="{% url 'pages:home' %}" class="navbar-brand">My Orders</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="{% url 'pages:home' %}">Home</a></li>
+            </ul>
+
+            <ul class="navbar-nav ml-auto">
+                {% if request.user.is_authenticated %}
+                    <li class="nav-item dropdown no-arrow">
+                        <a href="#" class="nav-link dropdown-toggle"  id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span>{{ request.user.first_name.title }} {{ request.user.last_name.title }}</span>
+                            <img style="width: 30px; height: 30px;" class="img-profile rounded-circle"
+                                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUf-i_3CTkZe1fyfCrqDsuUo5ZPcVudmf1YMisYBEpgTDogW9ZYg">
+                        </a>
+                        <div class="dropdown-menu">
+                            <a href="{% url 'dashboard:dashboard' %}" class="dropdown-item">Go to Dashboard</a>
+                            <a href="{% url 'custom_auth:logout' %}" class="dropdown-item">Logout</a>
+                        </div>
+                    </li>
+                {% else %}
+                    <li class="nav-item"><a href="{% url 'custom_auth:login' %}" class="nav-link">Login</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Sign Up</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+</header>

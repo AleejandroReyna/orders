@@ -1,19 +1,23 @@
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from companies import models
+from companies.forms import CreateCompanyForm
+from django.shortcuts import redirect
+from django.http import JsonResponse
 from django.urls import reverse_lazy
 from django.contrib import messages
+from users.models import User
+from companies import models
 
 
 class CompanyCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = models.Company
-    fields = ('name', 'address', 'phone', 'description', 'nit')
     template_name_suffix = '_form'
     redirect_field_name = 'redirect_to'
     login_url = '/auth/login'
     permission_required = 'companies.add_company'
     permission_denied_message = 'Unauthorized'
     success_url = reverse_lazy('companies:list_company')
+    form_class = CreateCompanyForm
 
     def get_context_data(self, **kwargs):
         context = super(CompanyCreateView, self).get_context_data()
@@ -21,9 +25,15 @@ class CompanyCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView)
         context['description'] = 'Create a company for active user.'
         return context
 
-    def get_success_url(self):
-        messages.success(self.request, 'Company has been added', extra_tags='success')
-        return super(CompanyCreateView, self).get_success_url()
+    def form_valid(self, form):
+        company = form.save()
+        role = models.CompanyRole.objects.get(name='administrator')
+        assignation = models.CompanyUserRole.objects.create(user_id=form['user'].value(), company=company,
+                                                            company_role=role)
+        messages.success(self.request, 'Company with name: "%s" for user: "%s" has been added.' % (
+            company.name, "%s %s" % (assignation.user.first_name.title(), assignation.user.last_name.title())
+        ))
+        return redirect(self.success_url)
 
 
 class CompanyListView(ListView):

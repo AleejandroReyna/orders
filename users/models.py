@@ -19,7 +19,7 @@ class User(AbstractUser, PermissionsMixin):
     objects = CustomUserManager()
 
     def __str__(self):
-        return self.email
+        return "%s %s (%s)" % (self.first_name.title(), self.last_name.title(), self.email)
 
     def save(self, *args, **kwargs):
         self.first_name = self.first_name.lower()
@@ -39,6 +39,23 @@ class User(AbstractUser, PermissionsMixin):
     def get_companies(self):
         return company_models.Company.objects.filter(companyuserrole__user=self,
                                                      companyuserrole__company_role__name='administrator')
+
+    def get_superuser_owners(self):
+        if self.is_superuser:
+            return User.objects.filter(groups__name__in=['owner']).union(User.objects.filter(is_superuser=True))
+        return None
+
+    def get_superuser_owners_method():
+        return User.objects.filter(groups__name__in=['owner']).union(User.objects.filter(is_superuser=True))
+
+    def get_allowed_users_to_create_clients(self):
+        if self.is_superuser:
+            return self.get_superuser_owners()
+        if self.groups.filter(name__in=['collaborator']):
+            if self.groups.filter(name__in=['owner']):
+                return self.get_owners().union(User.objects.filter(id=self.pk))
+            return self.get_owners()
+        return User.objects.filter(id=self.pk)
 
     class Meta:
         permissions = [

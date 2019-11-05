@@ -9,27 +9,34 @@
 
 <hr class="sidebar-divider">
 
-<span class="sidebar-heading">Companies</span>
+    <span class="sidebar-heading">Admin</span>
 
-<li class="nav-item dropdown">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#companiesCollapse" aria-expanded="true"
-       aria-controls="companiesCollapse">
-      <i class="fas fa-building fa-fw"></i>
-      <span>Companies</span>
-    </a>
-    <div id="companiesCollapse" class="collapse" aria-labelledby="companiesCollapse" data-parent="#accordionSidebar">
-      <div class="bg-white py-2 collapse-inner rounded">
-        <h6 class="collapse-header">Companies:</h6>
-          <a class="collapse-item {% active_link 'companies:list_company' strict=True %}"
-             href="{% url 'companies:list_company' %}">My Companies</a>
-          <a class="collapse-item {% active_link 'companies:new_company' strict=True %}"
-             href="{% url 'companies:new_company' %}">New Company</a>
-        <h6 class="collapse-header">Offices</h6>
-          <a class="collapse-item {% active_link 'offices:new_office' strict=True %}"
-             href="{% url 'offices:new_office' %}">Add Office</a>
-      </div>
-    </div>
-</li>
+{% if perms.companies.view_company %}
+
+    <li class="nav-item dropdown">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#companiesCollapse" aria-expanded="true"
+           aria-controls="companiesCollapse">
+          <i class="fas fa-building fa-fw"></i>
+          <span>Companies</span>
+        </a>
+        <div id="companiesCollapse" class="collapse" aria-labelledby="companiesCollapse" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Companies:</h6>
+              <a class="collapse-item {% active_link 'companies:list_company' strict=True %}"
+                 href="{% url 'companies:list_company' %}">My Companies</a>
+              {% if perms.companies.add_company %}
+                  <a class="collapse-item {% active_link 'companies:new_company' strict=True %}"
+                     href="{% url 'companies:new_company' %}">New Company</a>
+              {% endif %}
+            <h6 class="collapse-header">Offices</h6>
+              <a class="collapse-item {% active_link 'offices:new_office' strict=True %}"
+                 href="{% url 'offices:new_office' %}">Add Office</a>
+          </div>
+        </div>
+    </li>
+
+
+{% endif %}
 
 {% if perms.users.view_owners %}
 
@@ -72,6 +79,8 @@
 
 {% endif %}
 
+{% if perms.users.view_clients %}
+
 <li class="nav-item dropdown">
     <a href="#" class="nav-link collapsed" data-toggle="collapse" data-target="#clientsCollapse" aria-expanded="true"
        aria-controls="clientsCollapse">
@@ -81,11 +90,16 @@
     <div id="clientsCollapse" class="collapse" aria-labelledby="clientsCollapse" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Clients:</h6>
+            {% for owner in request.user.get_owners %}
+                <a href="#" class="collapse-item">{{ owner.first_name.title }}'s Clients</a>
+            {% endfor %}
             <a href="{% url 'clients:user_clients' %}" class="collapse-item">My Clients</a>
             <a href="{% url 'clients:create_client' %}" class="collapse-item">Add Client</a>
         </div>
     </div>
 </li>
+
+{% endif %}
 
 <span class="sidebar-heading">Utilities</span>
 

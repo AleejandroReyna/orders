@@ -35,5 +35,6 @@ urlpatterns = [
     path('offices/', include('offices.urls')),
     path('clients/', include('clients.urls')),
     path('owners/', include('owners.urls')),
-    path('exams/', include('exams.urls'))
+    path('exams/', include('exams.urls')),
+    path('users/', include('users.urls'))
 ]
