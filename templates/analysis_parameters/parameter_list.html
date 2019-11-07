@@ -9,7 +9,9 @@
             <div class="col">
                 <div class="d-flex align-items-center justify-content-between">
                     <h4>Parameters</h4>
-                    <a href="{% url 'parameters:create_parameter' %}" class="btn btn-primary">Create Parameter</a>
+                    {% if perms.analysis_parameters.add_parameter %}
+                        <a href="{% url 'parameters:create_parameter' %}" class="btn btn-primary">Create Parameter</a>
+                    {% endif %}
                 </div>
                 <p>The parameters for analysis</p>
             </div>
@@ -29,9 +31,11 @@
                                 <tr>
                                     <th>Name</th>
                                     <th>Description</th>
-                                    <th>Added By</th>
+                                    {% if request.user.is_superuser %}
+                                        <th>Added By</th>
+                                    {% endif %}
                                     <th>Type</th>
-                                    <th></th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -39,21 +43,29 @@
                                     <tr>
                                         <td><span>{{ object.name.title }}</span></td>
                                         <td><span>{{ object.description.capitalize }}</span></td>
-                                        <td>
-                                            {% if object.user %}
-                                                {{ object.user.first_name.title }} {{ object.user.last_name.title }}
-                                            {% else %}
-                                                Deleted User
-                                            {% endif %}
-                                        </td>
+                                        {% if request.user.is_superuser %}
+                                            <td>
+                                                {% if object.user %}
+                                                    {{ object.user.first_name.title }} {{ object.user.last_name.title }}
+                                                {% else %}
+                                                    Deleted User
+                                                {% endif %}
+                                            </td>
+                                        {% endif %}
                                         <td><span>{{ object.type.title }}</span></td>
                                         <td>
-                                            <a href="{% url 'parameters:parameter' parameter_id=object.pk %}"
-                                               class="btn btn-primary">View</a>
-                                            <a href="{% url 'parameters:edit_parameter' parameter_id=object.pk %}"
-                                               class="btn btn-success">Edit</a>
-                                            <a href="{% url 'parameters:delete_parameter' parameter_id=object.pk %}"
-                                               class="btn btn-danger">Delete</a>
+                                            {% if perms.analysis_parameters.view_parameter %}
+                                                <a href="{% url 'parameters:parameter' parameter_id=object.pk %}"
+                                                   class="btn btn-primary">View</a>
+                                            {% endif %}
+                                            {% if perms.analysis_parameters.change_parameter %}
+                                                <a href="{% url 'parameters:edit_parameter' parameter_id=object.pk %}"
+                                                   class="btn btn-success">Edit</a>
+                                            {% endif %}
+                                            {% if perms.analysis_parameters.delete_parameter %}
+                                                <a href="{% url 'parameters:delete_parameter' parameter_id=object.pk %}"
+                                                   class="btn btn-danger">Delete</a>
+                                            {% endif %}
                                         </td>
                                     </tr>
                                 {% endfor %}

@@ -143,6 +143,8 @@
     </div>
 </li>
 
+{% if perms.analysis_parameters.view_parameter %}
+
 <li class="nav-item dropdown">
     <a href="#" class="nav-link collapsed" data-toggle="collapse" data-target="#parametersCollapse"
        aria-expanded="false" aria-controls="parametersCollapse">
@@ -154,11 +156,16 @@
             <h6 class="collapse-header">Parameters</h6>
             <a class="collapse-item {% active_link 'parameters:parameters' strict=True %}"
                href="{% url 'parameters:parameters' %}">All Parameters</a>
-            <a class="collapse-item {% active_link 'parameters:create_parameter' strict=True %}"
-               href="{% url 'parameters:create_parameter' %}">Add Parameter</a>
+
+            {% if perms.analysis_parameters.add_parameter %}
+                <a class="collapse-item {% active_link 'parameters:create_parameter' strict=True %}"
+                   href="{% url 'parameters:create_parameter' %}">Add Parameter</a>
+            {% endif %}
         </div>
     </div>
 </li>
+
+{% endif %}
 
 <li class="nav-item dropdown">
     <a href="#" class="nav-link collapsed" data-toggle="collapse" data-target="#responsesCollapse"
@@ -170,13 +177,13 @@
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Response Types Groups</h6>
             {% if perms.exam_response_types.view_responsetypegroup %}
-                <a href="{% url 'exam_response_types_groups:response_type_groups' %}"
-                   class="collapse-item {% active_link 'exam_response_types_groups:response_type_groups' strict=True %}">All Response Type Groups</a>
+                <a href="{% url 'parameters_response_types_groups:response_type_groups' %}"
+                   class="collapse-item {% active_link 'parameters_response_types_groups:response_type_groups' strict=True %}">All Response Type Groups</a>
             {% endif %}
             <h6 class="collapse-header">Response Types</h6>
-            {% if perms.exam_response_types.view_responsetype %}
-                <a href="{% url 'exam_response_types:response_types' %}"
-                   class="collapse-item {% active_link 'exam_response_types:response_types' strict=True %}">All Response Types</a>
+            {% if perms.parameters_response_types.view_responsetype %}
+                <a href="{% url 'parameters_response_types:response_types' %}"
+                   class="collapse-item {% active_link 'parameters_response_types:response_types' strict=True %}">All Response Types</a>
             {% endif %}
             <h6 class="collapse-header">Units</h6>
             {% if perms.exam_response_types.view_unit %}

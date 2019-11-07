@@ -26,22 +26,28 @@
                                 <a href="{% url 'categories:category' category_id=object.category.pk %}">
                                     {{ object.category.name.title }}</a>
                             </li>
-                            <li>
-                                <strong>Created By: </strong>
-                                {% if object.user %}
-                                    <span>{{ object.user.first_name.title }} {{ object.user.last_name.title }}</span>
-                                {% else %}
-                                    <span>Deleted User</span>
-                                {% endif %}
-                            </li>
+                            {% if request.user.is_superuser %}
+                                <li>
+                                    <strong>Created By: </strong>
+                                    {% if object.user %}
+                                        <span>{{ object.user.first_name.title }} {{ object.user.last_name.title }}</span>
+                                    {% else %}
+                                        <span>Deleted User</span>
+                                    {% endif %}
+                                </li>
+                            {% endif %}
                             <li><strong>Created At: </strong><span>{{ object.created_at }}</span></li>
                             <li><strong>Updated At: </strong><span>{{ object.updated_at }}</span></li>
                         </ul>
 
-                        <a href="{% url 'parameters:edit_parameter' parameter_id=object.pk %}"
-                           class="btn btn-success">Edit</a>
-                        <a href="{% url 'parameters:delete_parameter' parameter_id=object.pk %}"
-                           class="btn btn-danger">Delete</a>
+                        {% if perms.analysis_parameters.change_parameter %}
+                            <a href="{% url 'parameters:edit_parameter' parameter_id=object.pk %}"
+                               class="btn btn-success">Edit</a>
+                        {% endif %}
+                        {% if perms.analysis_parameters.delete_parameter %}
+                            <a href="{% url 'parameters:delete_parameter' parameter_id=object.pk %}"
+                               class="btn btn-danger">Delete</a>
+                        {% endif %}
 
                     </div>
                 </div>

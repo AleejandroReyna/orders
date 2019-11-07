@@ -11,7 +11,7 @@ class ResponseTypeCreateView(LoginRequiredMixin, PermissionRequiredMixin, Create
     fields = ('name', 'description')
     login_url = reverse_lazy('custom_auth:login')
     redirect_field_name = 'redirect_to'
-    permission_required = 'exam_response_types.add_responsetype'
+    permission_required = 'parameters_response_types.add_responsetype'
 
     def get_success_url(self):
         messages.success(self.request, 'The response type with name: "%s" has been added.' % self.object.name.title())
@@ -35,7 +35,7 @@ class ResponseTypeEditView(LoginRequiredMixin, PermissionRequiredMixin, UpdateVi
     login_url = reverse_lazy('custom_auth:login')
     redirect_field_name = 'redirect_to'
     pk_url_kwarg = 'response_type_id'
-    permission_required = 'exam_response_types.change_responsetype'
+    permission_required = 'parameters_response_types.change_responsetype'
 
     def get_success_url(self):
         messages.success(self.request, 'The response type with name: "%s" has been added.' % self.object.name,
@@ -57,7 +57,7 @@ class ResponseTypeDeleteView(LoginRequiredMixin, PermissionRequiredMixin, Delete
     login_url = reverse_lazy('custom_auth:login')
     redirect_field_name = 'redirect_to'
     pk_url_kwarg = 'response_type_id'
-    permission_required = 'exam_response_types.delete_responsetype'
+    permission_required = 'parameters_response_types.delete_responsetype'
     template_name_suffix = '_form'
 
     def get_context_data(self, **kwargs):
@@ -68,14 +68,14 @@ class ResponseTypeDeleteView(LoginRequiredMixin, PermissionRequiredMixin, Delete
 
     def get_success_url(self):
         messages.success(self.request, 'Response type with name: "%s" has been deleted' % self.object.name)
-        return reverse_lazy('exam_response_types:response_types')
+        return reverse_lazy('parameters_response_types:response_types')
 
 
 class ResponseTypeView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = models.ResponseType
     login_url = reverse_lazy('custom_auth:login')
     redirect_field_name = 'redirect_to'
-    permission_required = 'exam_response_types.view_responsetype'
+    permission_required = 'parameters_response_types.view_responsetype'
     pk_url_kwarg = 'response_type_id'
 
 
@@ -83,7 +83,7 @@ class ResponseTypeListView(LoginRequiredMixin, PermissionRequiredMixin, ListView
     model = models.ResponseType
     login_url = reverse_lazy('custom_auth:login')
     redirect_field_name = 'redirect_to'
-    permission_required = 'exam_response_types.view_responsetype'
+    permission_required = 'parameters_response_types.view_responsetype'
 
 
 ''' GROUPS '''
@@ -94,7 +94,7 @@ class ResponseTypeGroupCreateView(LoginRequiredMixin, PermissionRequiredMixin, C
     fields = ('name', 'description')
     login_url = reverse_lazy('custom_auth:login')
     redirect_field_name = 'redirect_to'
-    permission_required = 'exam_response_types.add_responsetypegroup'
+    permission_required = 'parameters_response_types.add_responsetypegroup'
 
     def get_context_data(self, **kwargs):
         context = super(ResponseTypeGroupCreateView, self).get_context_data()
@@ -109,7 +109,7 @@ class ResponseTypeGroupCreateView(LoginRequiredMixin, PermissionRequiredMixin, C
         return super(ResponseTypeGroupCreateView, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('exam_response_types_groups:response_type_group',
+        return reverse_lazy('parameters_response_types:response_type_group',
                             kwargs={'response_type_group_id': self.object.pk})
 
 
@@ -117,7 +117,7 @@ class ResponseTypeGroupView(LoginRequiredMixin, PermissionRequiredMixin, DetailV
     model = models.ResponseTypeGroup
     login_url = reverse_lazy('custom_auth:login')
     redirect_field_name = 'redirect_to'
-    permission_required = 'exam_response_types.view_responsetypegroup'
+    permission_required = 'parameters_response_types.view_responsetypegroup'
     pk_url_kwarg = 'response_type_group_id'
 
 
@@ -125,7 +125,7 @@ class ResponseTypeGroupListView(LoginRequiredMixin, PermissionRequiredMixin, Lis
     model = models.ResponseTypeGroup
     login_url = reverse_lazy('custom_auth:login')
     redirect_field_name = 'redirect_to'
-    permission_required = 'exam_response_types.view_responsetypegroup'
+    permission_required = 'parameters_response_types.view_responsetypegroup'
 
 
 class ResponseTypeGroupEditView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
@@ -133,7 +133,7 @@ class ResponseTypeGroupEditView(LoginRequiredMixin, PermissionRequiredMixin, Upd
     fields = ('name', 'description')
     login_url = reverse_lazy('custom_auth:login')
     redirect_field_name = 'redirect_to'
-    permission_required = 'exam_response_types.add_responsetypegroup'
+    permission_required = 'parameters_response_types.add_responsetypegroup'
     pk_url_kwarg = 'response_type_group_id'
 
     def get_context_data(self, **kwargs):
@@ -149,16 +149,16 @@ class ResponseTypeGroupEditView(LoginRequiredMixin, PermissionRequiredMixin, Upd
     def get_success_url(self):
         messages.success(self.request, 'The group with name: "%s" has been updated.' % self.object.name,
                          extra_tags='success')
-        return reverse_lazy('exam_response_types_groups:response_type_group',
+        return reverse_lazy('parameters_response_types:response_type_group',
                             kwargs={'response_type_group_id': self.object.pk})
 
 
 class ResponseTypeGroupDeleteView(PermissionRequiredMixin, DeleteView):
     model = models.ResponseTypeGroup
-    permission_required = 'exam_response_types.delete_responsetypegroup'
+    permission_required = 'parameters_response_types.delete_responsetypegroup'
     login_url = reverse_lazy('custom_auth:login')
     pk_url_kwarg = 'response_type_group_id'
-    success_url = reverse_lazy('exam_response_types_groups:response_type_groups')
+    success_url = reverse_lazy('parameters_response_types:response_type_groups')
 
     def get_context_data(self, **kwargs):
         context = super(ResponseTypeGroupDeleteView, self).get_context_data()
@@ -180,7 +180,7 @@ class ResponseTypeAssignationCreateView(LoginRequiredMixin, PermissionRequiredMi
     fields = ('response_type', 'weighing')
     login_url = reverse_lazy('custom_auth:login')
     redirect_field_name = 'redirect_to'
-    permission_required = 'exam_response_types.add_responsetypeassignation'
+    permission_required = 'parameters_response_types.add_responsetypeassignation'
 
     def get_context_data(self, **kwargs):
         context = super(ResponseTypeAssignationCreateView, self).get_context_data()
@@ -204,7 +204,7 @@ class ResponseTypeAssignationCreateView(LoginRequiredMixin, PermissionRequiredMi
 
     def get_success_url(self):
         context = self.get_context_data()
-        return reverse_lazy('exam_response_types_groups:response_type_group',
+        return reverse_lazy('parameters_response_types:response_type_group',
                             kwargs={'response_type_group_id': context['group'].pk})
 
 
@@ -213,7 +213,7 @@ class ResponseTypeAssignationEditView(LoginRequiredMixin, PermissionRequiredMixi
     pk_url_kwarg = 'response_type_assignation_id'
     login_url = reverse_lazy('custom_auth:login')
     redirect_field_name = 'redirect_to'
-    permission_required = 'exam_response_types.change_responsetypeassignation'
+    permission_required = 'parameters_response_types.change_responsetypeassignation'
     template_name_suffix = '_edit_form'
     fields = ('weighing',)
 
@@ -230,7 +230,7 @@ class ResponseTypeAssignationEditView(LoginRequiredMixin, PermissionRequiredMixi
         return super(ResponseTypeAssignationEditView, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('exam_response_types_groups:response_type_group',
+        return reverse_lazy('parameters_response_types:response_type_group',
                             kwargs={'response_type_group_id': self.object.response_type_group.pk})
 
 
@@ -239,7 +239,7 @@ class ResponseTypeAssignationDeleteView(LoginRequiredMixin, PermissionRequiredMi
     pk_url_kwarg = 'response_type_assignation_id'
     login_url = reverse_lazy('custom_auth:login')
     redirect_field_name = 'redirect_to'
-    permission_required = 'exam_response_types.delete_responsetypeassignation'
+    permission_required = 'parameters_response_types.delete_responsetypeassignation'
     template_name_suffix = '_delete_form'
 
     def get_context_data(self, **kwargs):

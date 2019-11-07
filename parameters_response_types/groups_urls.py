@@ -3,7 +3,7 @@ from parameters_response_types.views import ResponseTypeGroupCreateView, Respons
     ResponseTypeAssignationCreateView, ResponseTypeGroupListView, ResponseTypeGroupEditView, \
     ResponseTypeGroupDeleteView
 
-app_name = 'exam_response_types_groups'
+app_name = 'parameters_response_types_groups'
 
 urlpatterns = [
     path('', ResponseTypeGroupListView.as_view(), name='response_type_groups'),

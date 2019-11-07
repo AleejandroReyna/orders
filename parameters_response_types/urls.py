@@ -2,7 +2,7 @@ from django.urls import path
 from parameters_response_types.views import ResponseTypeCreateView, ResponseTypeView, ResponseTypeListView, \
     ResponseTypeEditView, ResponseTypeDeleteView
 
-app_name = 'exam_response_types'
+app_name = 'parameters_response_types'
 
 urlpatterns = [
     path('', ResponseTypeListView.as_view(), name='response_types'),
