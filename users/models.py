@@ -63,7 +63,8 @@ class User(AbstractUser, PermissionsMixin):
             ("view_collaborators", "View collaborators for company"),
             ("create_clients", "Create client for company"),
             ("view_clients", "View clients for company"),
-            ("view_owners", "View owners for collaborators")
+            ("view_owners", "View owners for collaborators"),
+            ("get_analysis", "Get property Analysis")
         ]
 
 
