@@ -5,12 +5,26 @@ language: python
 python:
   - 3.6.4
 
+services: mysql
+
+branches:
+  only:
+  - master
+  - develop
+
 install:
   - pip install -r requirements.txt
+
+before_script:
+  - mysqladmin --user=travis --password="" password "root"
+  - mysql -e 'create database myorders_test;'
 
 script:
   - python manage.py migrate
   - python manage.py test
+
+after_script:
+  - mysql -e 'drop database myorders_test;'
 
 after_success:
   - python -m codecov
