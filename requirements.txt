@@ -1,5 +1,5 @@
 Babel==2.7.0
-Django==2.2.4
+Django==2.2.21
 django-active-link==0.1.6
 django-braces==1.13.0
 django-crequest==2018.5.11
