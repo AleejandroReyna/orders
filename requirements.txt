@@ -9,4 +9,4 @@ mysqlclient==1.4.4
 phonenumbers==8.10.16
 python-dotenv==0.10.3
 pytz==2019.2
-sqlparse==0.3.0
+sqlparse==0.4.4
